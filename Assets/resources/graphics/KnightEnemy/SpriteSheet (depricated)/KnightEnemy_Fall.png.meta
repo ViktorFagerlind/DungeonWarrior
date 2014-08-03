@@ -1,0 +1,708 @@
+fileFormatVersion: 2
+guid: 8f907647c10019d4bbba978f9e1ea03b
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: KnightEnemy_Fall
+    21300002: KnightEnemy_Fall_0
+    21300004: KnightEnemy_Fall_1
+    21300006: KnightEnemy_Fall_2
+    21300008: KnightEnemy_Fall_3
+    21300010: KnightEnemy_Fall_4
+    21300012: KnightEnemy_Fall_5
+    21300014: KnightEnemy_Fall_6
+    21300016: KnightEnemy_Fall_7
+    21300018: KnightEnemy_Fall_8
+    21300020: KnightEnemy_Fall_9
+    21300022: KnightEnemy_Fall_10
+    21300024: KnightEnemy_Fall_11
+    21300026: KnightEnemy_Fall_12
+    21300028: KnightEnemy_Fall_13
+    21300030: KnightEnemy_Fall_14
+    21300032: KnightEnemy_Fall_15
+    21300034: KnightEnemy_Fall_16
+    21300036: KnightEnemy_Fall_17
+    21300038: KnightEnemy_Fall_18
+    21300040: KnightEnemy_Fall_19
+    21300042: KnightEnemy_Fall_20
+    21300044: KnightEnemy_Fall_21
+    21300046: KnightEnemy_Fall_22
+    21300048: KnightEnemy_Fall_23
+    21300050: KnightEnemy_Fall_24
+    21300052: KnightEnemy_Fall_25
+    21300054: KnightEnemy_Fall_26
+    21300056: KnightEnemy_Fall_27
+    21300058: KnightEnemy_Fall_28
+    21300060: KnightEnemy_Fall_29
+    21300062: KnightEnemy_Fall_30
+    21300064: KnightEnemy_Fall_31
+    21300066: KnightEnemy_Fall_32
+    21300068: KnightEnemy_Fall_33
+    21300070: KnightEnemy_Fall_34
+    21300072: KnightEnemy_Fall_35
+    21300074: KnightEnemy_Fall_36
+    21300076: KnightEnemy_Fall_37
+    21300078: KnightEnemy_Fall_38
+    21300080: KnightEnemy_Fall_39
+    21300082: KnightEnemy_Fall_40
+    21300084: KnightEnemy_Fall_41
+    21300086: KnightEnemy_Fall_42
+    21300088: KnightEnemy_Fall_43
+    21300090: KnightEnemy_Fall_44
+    21300092: KnightEnemy_Fall_45
+    21300094: KnightEnemy_Fall_46
+    21300096: KnightEnemy_Fall_47
+    21300098: KnightEnemy_Fall_48
+    21300100: KnightEnemy_Fall_49
+    21300102: KnightEnemy_Fall_50
+    21300104: KnightEnemy_Fall_51
+    21300106: KnightEnemy_Fall_52
+    21300108: KnightEnemy_Fall_53
+    21300110: KnightEnemy_Fall_54
+    21300112: KnightEnemy_Fall_55
+    21300114: KnightEnemy_Fall_56
+    21300116: KnightEnemy_Fall_57
+    21300118: KnightEnemy_Fall_58
+    21300120: KnightEnemy_Fall_59
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: KnightEnemy_Fall_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 9
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_1
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_2
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_3
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_4
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_5
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_6
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_7
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_8
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_9
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 1820
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_11
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_12
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_13
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_14
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_15
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_16
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_17
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_18
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_19
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 1456
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_21
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_22
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_23
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_24
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_25
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_26
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_27
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_28
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_29
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 1092
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_31
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_32
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_33
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_34
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_35
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_36
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_37
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_38
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_39
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 728
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_41
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_42
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_43
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_44
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_45
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_46
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_47
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_48
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_49
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 364
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_51
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_52
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_53
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_54
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_55
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_56
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_57
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_58
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: KnightEnemy_Fall_59
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 0
+        width: 198
+        height: 364
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
