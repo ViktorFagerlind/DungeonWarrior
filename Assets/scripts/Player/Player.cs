@@ -15,22 +15,32 @@ public class Player : Character
   {
     base.Update ();
 
-    if (/*Input.GetAxis ("Vertical") > 0.5f || */ Input.GetKeyDown (KeyCode.W))
+    if (Input.GetButtonDown ("Jump"))
     {
-      logger.Debug ("Jump button pressed");
+      // logger.Debug ("Jump button pressed");
       Jump ();
     }
 
-    if (/*Input.GetButton ("Fire1") ||*/ Input.GetKeyDown (KeyCode.G))
+    if (Input.GetButtonDown ("Swing"))
     {
-      logger.Debug ("Fire button pressed");
-
+      // logger.Debug ("Fire button pressed");
       if (Input.GetAxis ("Vertical") < -0.2f)
         SwingLow ();
       else
         SwingHigh ();
     }
 
+    if (Input.GetAxis ("Protect") > 0.2f)
+    {
+      if (Input.GetAxis ("Vertical") >= 0f)
+        Protect (Character.ProtectionType.High);
+      else
+        Protect (Character.ProtectionType.Low);
+    }
+    else
+      Protect (Character.ProtectionType.None);
+
+        
     //m_inputHorizontal = Input.GetAxis ("Horizontal");
     Move (Input.GetAxis ("Horizontal"));
   }

@@ -32,6 +32,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: ProtectHigh
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -401,15 +407,15 @@ StateMachine:
       second:
       - {fileID: 110100000}
     data:
+      first: {fileID: 110299258}
+      second:
+      - {fileID: 110126909}
+    data:
       first: {fileID: 110200000}
       second:
       - {fileID: 110184705}
       - {fileID: 110148323}
       - {fileID: 110186216}
-    data:
-      first: {fileID: 110299258}
-      second:
-      - {fileID: 110126909}
     data:
       first: {fileID: 110244543}
       second:

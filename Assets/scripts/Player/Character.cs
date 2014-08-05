@@ -1,19 +1,32 @@
 using UnityEngine;
 using System.Collections;
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+
 public enum AnimationState
 { 
   Idle,
   Walk,
   Fall,
   SwingHigh,
-  SwingLow
+  SwingLow,
+  ProtectHigh,
+  ProtectLow
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------
 
 [RequireComponent (typeof (Rigidbody2D), typeof (CircleCollider2D))]
 public class Character : MonoBehaviour 
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+  public enum ProtectionType
+  { 
+    None,
+    High,
+    Low
+  }
 
 	// edit these to tune character movement	
 	public float                          m_walkForce         = 3f;
@@ -31,20 +44,23 @@ public class Character : MonoBehaviour
 
   private float                         m_flipSpeed = 0.05f;
 
-
-  [HideInInspector] private bool        m_grounded = false;
-  public bool  grounded         {get {return m_grounded;}}
-
-  public float m_horizontalSpeed  {get {return rigidbody2D.velocity.x;}}
-
   private readonly int                  m_groundMask = 1 << 8; // Ground layer mask
 
-  private float                       m_inputHorizontal     = 0.0f;
-  private bool                        m_inputJump           = false;
+  private bool                          m_grounded        = false;
+
+  private float                         m_inputHorizontal     = 0.0f;
+  private bool                          m_inputJump           = false;
 
   private   CharacterAnims              m_characterAnims;
 
-	public virtual void Awake()
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public bool  grounded           {get {return m_grounded;}}
+  public float m_horizontalSpeed  {get {return rigidbody2D.velocity.x;}}
+    
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public virtual void Awake()
 	{
     m_collider        = GetComponentInChildren<CircleCollider2D> ();
     m_leftRayOrigin   = new Vector2 (m_collider.center.x - m_collider.radius * 0.7f, m_collider.center.y);
@@ -56,23 +72,15 @@ public class Character : MonoBehaviour
     m_initialScale = transform.localScale;
   }
 	
-  private bool IsSwingAllowed ()
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  private bool IsActionAllowed ()
   {
     return m_characterAnims.GetState () == AnimationState.Idle || 
            m_characterAnims.GetState () == AnimationState.Walk;
   }
 
-  private bool IsMoveAllowed ()
-  {
-    return m_characterAnims.GetState () == AnimationState.Idle || 
-           m_characterAnims.GetState () == AnimationState.Walk;
-  }
-  
-  private bool IsJumpAllowed ()
-  {
-    return m_characterAnims.GetState () == AnimationState.Idle || 
-           m_characterAnims.GetState () == AnimationState.Walk;
-  }
+  // ---------------------------------------------------------------------------------------------------------------------------------
   
   public void Jump ()
   {
@@ -83,10 +91,38 @@ public class Character : MonoBehaviour
   {
     m_inputHorizontal = horizontalFactor;
   }
-  
+
+  public void Protect (ProtectionType type)
+  {
+    AnimationState state = m_characterAnims.GetState ();
+    if (((type == ProtectionType.High)  && (state == AnimationState.ProtectHigh)) ||
+        ((type == ProtectionType.Low)   && (state == AnimationState.ProtectLow))  ||
+        ((type == ProtectionType.None)  && (state != AnimationState.ProtectHigh) && (state != AnimationState.ProtectLow)))
+        return;
+
+
+    switch (type)
+    {
+      case ProtectionType.High:
+        m_characterAnims.SetProtectHigh (true);
+        m_characterAnims.SetProtectLow  (false);
+        break;
+
+      case ProtectionType.Low:
+        m_characterAnims.SetProtectHigh (false);
+        m_characterAnims.SetProtectLow  (true);
+        break;
+
+      case ProtectionType.None:
+        m_characterAnims.SetProtectHigh (false);
+        m_characterAnims.SetProtectLow  (false);
+        break;
+    }
+  }
+
   public void SwingHigh ()
   {
-    if (!IsSwingAllowed ())
+    if (!IsActionAllowed ())
       return;
 
     m_characterAnims.SwingHigh ();
@@ -94,12 +130,12 @@ public class Character : MonoBehaviour
 
   public void SwingLow ()
   {
-    if (!IsSwingAllowed ())
+    if (!IsActionAllowed ())
       return;
     
     m_characterAnims.SwingLow ();
   }
-  
+
   // Use this for initialization
 	public virtual void Start () 
 	{
@@ -123,8 +159,13 @@ public class Character : MonoBehaviour
 //    if (!m_grounded)
 //      return;
 
-    if (!IsMoveAllowed ())
+    if (!IsActionAllowed ())
+    {
+      // logger.Debug ("Not Allowed");
       return;
+    }
+
+    // logger.Debug ("Allowed");
 
     // Calculate force along ground plane
     Vector2 targetVelocity  = new Vector2 ();
@@ -141,11 +182,10 @@ public class Character : MonoBehaviour
     if (m_inputJump)
     {
       m_inputJump = false;
-      logger.Debug ("No more jump input");
 
-      if (IsJumpAllowed ())
+      if (IsActionAllowed ())
       {
-        logger.Debug ("Jump!");
+        //logger.Debug ("Jump!");
 
         //force.y += m_jumpForce;
         rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, m_jumpSpeed);
@@ -162,15 +202,17 @@ public class Character : MonoBehaviour
     m_characterAnims.SetGrounded (m_grounded);
     m_characterAnims.SetSpeed (m_horizontalSpeed);
 
+//    m_characterAnims.SetProtectHigh (m_inputHighProtection);
+
     // change direction
 //    if (m_characterAnims.GetState () == AnimationState.Walk)
     {
-      if (m_horizontalSpeed > m_flipSpeed)
+      if (m_inputHorizontal > m_flipSpeed)
       {
-        m_facingLeft = true;
+        m_facingLeft = false;
         transform.localScale = new Vector3(-m_initialScale.x, m_initialScale.y, m_initialScale.z);
       }
-      else if (m_horizontalSpeed < -m_flipSpeed)
+      else if (m_inputHorizontal < -m_flipSpeed)
       {
         m_facingLeft = true;
         transform.localScale = new Vector3(m_initialScale.x, m_initialScale.y, m_initialScale.z);

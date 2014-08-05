@@ -29,43 +29,13 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 7400000, guid: ba6fe79064c8bb345b493418f64a2729, type: 2}
+  - {fileID: 7400000, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 200, y: 0, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
---- !u!1102 &110216061
-State:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Low swing
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Motions:
-  - {fileID: 7400006, guid: ba6fe79064c8bb345b493418f64a2729, type: 2}
-  m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 305, y: 195, z: 0}
-  m_IKOnFeet: 0
-  m_Mirror: 0
-  m_Tag: 
---- !u!1102 &110227913
-State:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Idle
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Motions:
-  - {fileID: 7400002, guid: ba6fe79064c8bb345b493418f64a2729, type: 2}
-  m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 235, y: 65, z: 0}
-  m_IKOnFeet: 0
-  m_Mirror: 0
-  m_Tag: 
---- !u!1102 &110257519
+--- !u!1102 &110205448
 State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -74,13 +44,73 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 7400004, guid: ba6fe79064c8bb345b493418f64a2729, type: 2}
+  - {fileID: 7400008, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 340, y: 260, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110209010
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Low swing
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400010, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 375, y: 325, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110218449
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Idle
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400002, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 235, y: 65, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110232434
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Low Protection
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400006, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 305, y: 195, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110252955
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: High Protection
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400004, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 270, y: 130, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
---- !u!1102 &110258549
+--- !u!1102 &110292852
 State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
@@ -89,9 +119,9 @@ State:
   m_Speed: 1
   m_CycleOffset: 0
   m_Motions:
-  - {fileID: 7400008, guid: ba6fe79064c8bb345b493418f64a2729, type: 2}
+  - {fileID: 7400012, guid: a57ec53a85f1dec4e816cdba5587569d, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 340, y: 260, z: 0}
+  m_Position: {x: 410, y: 390, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -105,10 +135,12 @@ StateMachine:
   m_DefaultState: {fileID: 110200000}
   m_States:
   - {fileID: 110200000}
-  - {fileID: 110227913}
-  - {fileID: 110257519}
-  - {fileID: 110216061}
-  - {fileID: 110258549}
+  - {fileID: 110218449}
+  - {fileID: 110252955}
+  - {fileID: 110232434}
+  - {fileID: 110205448}
+  - {fileID: 110209010}
+  - {fileID: 110292852}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions: {}
