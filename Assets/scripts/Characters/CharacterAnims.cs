@@ -60,6 +60,9 @@ public class CharacterAnims : MonoBehaviour
 
   public void SwingHigh ()    {m_animator.SetTrigger (m_swingHighHash);}
   public void SwingLow  ()    {m_animator.SetTrigger (m_swingLowHash);}
+  public void Die       ()    {}
+  public void HitHigh   ()    {}
+  public void HitLow    ()    {}
 
   public void SetProtectHigh (bool protect)       {m_animator.SetBool   (m_protectHighHash, protect);}
   public void SetProtectLow  (bool protect)       {m_animator.SetBool   (m_protectLowHash,  protect);}

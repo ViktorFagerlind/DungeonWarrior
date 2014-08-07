@@ -51,7 +51,7 @@ public class Character : MonoBehaviour
   private float                         m_inputHorizontal     = 0.0f;
   private bool                          m_inputJump           = false;
 
-  private   CharacterAnims              m_characterAnims;
+  protected   CharacterAnims            m_characterAnims;
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
     
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  public virtual void Awake()
+  public virtual void Awake ()
 	{
     m_collider        = GetComponentInChildren<CircleCollider2D> ();
     m_leftRayOrigin   = new Vector2 (m_collider.center.x - m_collider.radius * 0.7f, m_collider.center.y);

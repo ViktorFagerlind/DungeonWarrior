@@ -3,9 +3,8 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Ball
-  - GoalTeam1
-  - GoalTeam2
+  - AttackWeapon
+  - Shield
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

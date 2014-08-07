@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player : Character 
+public class Player : AttackableCharacter 
 {	
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -49,4 +49,6 @@ public class Player : Character
 	{
     base.FixedUpdate ();
 	}
+
+
 }
