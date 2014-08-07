@@ -94,12 +94,13 @@ public class Character : MonoBehaviour
 
   public void Protect (ProtectionType type)
   {
+/*
     AnimationState state = m_characterAnims.GetState ();
     if (((type == ProtectionType.High)  && (state == AnimationState.ProtectHigh)) ||
         ((type == ProtectionType.Low)   && (state == AnimationState.ProtectLow))  ||
         ((type == ProtectionType.None)  && (state != AnimationState.ProtectHigh) && (state != AnimationState.ProtectLow)))
         return;
-
+*/
 
     switch (type)
     {

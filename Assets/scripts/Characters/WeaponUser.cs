@@ -2,23 +2,27 @@
 using UnityEngine;
 using System.Collections;
 
-public class Weapons : MonoBehaviour
+public class WeaponUser : MonoBehaviour
 {
-  public string rightHandWeapon;
-  public string leftHandWeapon;
+  public string PrefabName;
+  public string WeaponAttachName;
+
+  private SpriteRenderer m_attachWeaponSprite;
+  private SpriteRenderer m_newWeaponSprite;
+
 
   // Use this for initialization
   void Start()
   {
-    LoadAndSetWeapon ("Graphics and prefabs/Weapons/" + rightHandWeapon, "Right-hand-weapon");
-    LoadAndSetWeapon ("Graphics and prefabs/Weapons/" + leftHandWeapon, "Left-hand-weapon");
+    LoadAndSetWeapon ("Graphics and prefabs/Weapons/" + PrefabName, WeaponAttachName);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   // Update is called once per frame
-  void Update()
+  void LateUpdate()
   {
+    m_newWeaponSprite.renderer.sortingOrder = m_attachWeaponSprite.renderer.sortingOrder;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -37,7 +41,10 @@ public class Weapons : MonoBehaviour
   {
     Transform attachWeapon = Misc.getChildByName (transform, attachWeaponName);
     
-    attachWeapon.GetComponent<SpriteRenderer> ().enabled = false;
+    m_attachWeaponSprite = attachWeapon.GetComponent<SpriteRenderer> ();
+    m_newWeaponSprite    = newWeapon.GetComponent<SpriteRenderer> ();
+
+    m_attachWeaponSprite.enabled = false;
     
     newWeapon.parent = attachWeapon;
     Misc.resetTransform (newWeapon);  
