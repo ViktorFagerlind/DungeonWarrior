@@ -40,8 +40,13 @@ public class Player : AttackableCharacter
     else
       Protect (Character.ProtectionType.None);
 
-        
-    //m_inputHorizontal = Input.GetAxis ("Horizontal");
+    /* if (Input.GetMouseButton (1)) 
+    {
+      float mouseX = Input.GetAxis ("Mouse X");
+      logger.Debug (mouseX.ToString ());
+      Move (mouseX);
+    }
+    else */
     Move (Input.GetAxis ("Horizontal"));
   }
 

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 10
+  m_force: 15000
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

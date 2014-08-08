@@ -29,20 +29,24 @@ public class GameLogger
     return context;
   }
 
+  private string getTimeString ()
+  {
+    return "(" + Time.time + ")";
+  }
+
   public void Debug (string message)
   {
-
-    UnityEngine.Debug.Log ("DEBUG   " + m_className + "   [" + getContext () + "] - " + message);
+    UnityEngine.Debug.Log ("DEBUG   " + getTimeString () + m_className + "   [" + getContext () + "] - " + message);
   }
 
   public void Warning (string message)
   {
-    UnityEngine.Debug.Log ("WARNING " + m_className + "   [" + getContext () + "] - " + message);
+    UnityEngine.Debug.Log ("WARNING " + getTimeString () + m_className + "   [" + getContext () + "] - " + message);
   }
 
   public void Error (string message)
   {
-    UnityEngine.Debug.Log ("ERROR   " + m_className + "   [" + getContext () + "] - " + message);
+    UnityEngine.Debug.Log ("ERROR   " + getTimeString () + m_className + "   [" + getContext () + "] - " + message);
   }
   public void PushContext (string context)
   {

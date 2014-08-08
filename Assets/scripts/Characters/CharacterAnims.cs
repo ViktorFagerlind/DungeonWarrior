@@ -1,9 +1,34 @@
 using UnityEngine;
 using System.Collections;
 
+public enum AnimationState
+{ 
+  Idle,
+  Walk,
+  Fall,
+  SwingHigh,
+  SwingLow,
+  ProtectHigh,
+  ProtectLow,
+  DamageHigh,
+  DamageLow
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+
 public class CharacterAnims : MonoBehaviour 
 {
-	private Animator 	m_animator;
+  public delegate void OnStateChange (AnimationState oldState, AnimationState newState);
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public OnStateChange m_onStateChangeDelegate;
+  
+  private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+  
+  private Animator 	m_animator;
+
+  AnimationState m_previousState = AnimationState.Idle;
 
   // state hashes
   //private int m_idleStateHash       = Animator.StringToHash("Base Layer.Idle");
@@ -13,6 +38,10 @@ public class CharacterAnims : MonoBehaviour
   private int m_swingLowStateHash     = Animator.StringToHash("Base Layer.Low-Swing");
   private int m_protectHighStateHash  = Animator.StringToHash("Base Layer.High-Protect");
   private int m_protectLowStateHash   = Animator.StringToHash("Base Layer.Low-Protect");
+  private int m_damageHighStateHash   = Animator.StringToHash("Base Layer.High-Damage");
+  private int m_damageLowStateHash    = Animator.StringToHash("Base Layer.Low-Damage");
+  private int m_idleStateHash         = Animator.StringToHash("Base Layer.Idle");
+  private int m_deathStateHash        = Animator.StringToHash("Base Layer.Death");
 
   // parameter hashes
   private int m_groundedHash          = Animator.StringToHash ("Grounded");
@@ -23,16 +52,24 @@ public class CharacterAnims : MonoBehaviour
   // trigger hashes
   private int m_swingHighHash         = Animator.StringToHash ("SwingHigh");
   private int m_swingLowHash          = Animator.StringToHash ("SwingLow");
+  private int m_damageHighHash        = Animator.StringToHash ("DamageHigh");
+  private int m_damageLowHash         = Animator.StringToHash ("DamageLow");
+  private int m_deathHash             = Animator.StringToHash ("Death");
 
-	void Awake()
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  void Awake()
 	{
 		// cache components to save on performance
     m_animator  = GetComponentInChildren<Animator> ();
 	}
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public AnimationState GetState ()
   {
     AnimatorStateInfo stateInfo;
+    AnimationState    state;
 
     // We want the target state if an animation has started...
     if (m_animator.IsInTransition (0))
@@ -43,32 +80,57 @@ public class CharacterAnims : MonoBehaviour
     int stateNameHash = stateInfo.nameHash;
 
     if (stateNameHash == m_walkStateHash)
-      return AnimationState.Walk;
-    if (stateNameHash == m_fallStateHash)
-      return AnimationState.Fall;
-    if (stateNameHash == m_swingHighStateHash)
-      return AnimationState.SwingHigh;
-    if (stateNameHash == m_swingLowStateHash)
-      return AnimationState.SwingLow;
-    if (stateNameHash == m_protectHighStateHash)
-      return AnimationState.ProtectHigh;
-    if (stateNameHash == m_protectLowStateHash)
-      return AnimationState.ProtectLow;
+      state = AnimationState.Walk;
+    else if (stateNameHash == m_fallStateHash)
+      state = AnimationState.Fall;
+    else if (stateNameHash == m_swingHighStateHash)
+      state = AnimationState.SwingHigh;
+    else if (stateNameHash == m_swingLowStateHash)
+      state = AnimationState.SwingLow;
+    else if (stateNameHash == m_protectHighStateHash)
+      state = AnimationState.ProtectHigh;
+    else if (stateNameHash == m_protectLowStateHash)
+      state = AnimationState.ProtectLow;
+    else if (stateNameHash == m_damageHighStateHash)
+      state = AnimationState.DamageHigh;
+    else if (stateNameHash == m_damageLowStateHash)
+      state = AnimationState.DamageLow;
+    else if (stateNameHash == m_idleStateHash)
+      state = AnimationState.Idle;
+    else if (stateNameHash == m_deathStateHash)
+      state = AnimationState.Idle;
+    else
+    {
+      logger.Error ("Unknown state!!!");
+      state = AnimationState.Idle;
+    }
 
-    return AnimationState.Idle;
+    if (state != m_previousState)
+    {
+      m_onStateChangeDelegate (m_previousState, state);
+      m_previousState = state;
+    }
+
+    return state;
   }
 
-  public void SwingHigh ()    {m_animator.SetTrigger (m_swingHighHash);}
-  public void SwingLow  ()    {m_animator.SetTrigger (m_swingLowHash);}
-  public void Die       ()    {}
-  public void HitHigh   ()    {}
-  public void HitLow    ()    {}
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public void Death       ()    {m_animator.SetTrigger (m_deathHash);}
+  public void SwingHigh   ()    {m_animator.SetTrigger (m_swingHighHash);}
+  public void SwingLow    ()    {m_animator.SetTrigger (m_swingLowHash);}
+  public void DamageHigh  ()    {m_animator.SetTrigger (m_damageHighHash);}
+  public void DamageLow   ()    {m_animator.SetTrigger (m_damageLowHash);}
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public void SetProtectHigh (bool protect)       {m_animator.SetBool   (m_protectHighHash, protect);}
   public void SetProtectLow  (bool protect)       {m_animator.SetBool   (m_protectLowHash,  protect);}
   public void SetGrounded    (bool grounded)      {m_animator.SetBool   (m_groundedHash,    grounded);}
   public void SetSpeed       (float speed)        {m_animator.SetFloat  (m_speedHash, Mathf.Abs (speed));}
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   void Update() 
 	{
   }

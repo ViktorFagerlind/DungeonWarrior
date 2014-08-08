@@ -3,20 +3,7 @@ using System.Collections;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-public enum AnimationState
-{ 
-  Idle,
-  Walk,
-  Fall,
-  SwingHigh,
-  SwingLow,
-  ProtectHigh,
-  ProtectLow
-}
-
-// ---------------------------------------------------------------------------------------------------------------------------------
-
-[RequireComponent (typeof (Rigidbody2D), typeof (CircleCollider2D))]
+[RequireComponent (typeof (Rigidbody2D))]
 public class Character : MonoBehaviour 
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -28,7 +15,9 @@ public class Character : MonoBehaviour
     Low
   }
 
-	// edit these to tune character movement	
+  // ---------------------------------------------------------------------------------------------------------------------------------
+
+  // edit these to tune character movement	
 	public float                          m_walkForce         = 3f;
   public float                          m_jumpSpeed         = 4f;
   public float                          m_maxVelocityChange = 10f;
@@ -71,7 +60,7 @@ public class Character : MonoBehaviour
 
     m_initialScale = transform.localScale;
   }
-	
+
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   private bool IsActionAllowed ()
@@ -80,6 +69,17 @@ public class Character : MonoBehaviour
            m_characterAnims.GetState () == AnimationState.Walk;
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  private bool IsFlipAllowed ()
+  {
+    return  m_characterAnims.GetState () == AnimationState.Idle         || 
+            m_characterAnims.GetState () == AnimationState.Walk         || 
+            m_characterAnims.GetState () == AnimationState.Fall         || 
+            m_characterAnims.GetState () == AnimationState.ProtectHigh  || 
+            m_characterAnims.GetState () == AnimationState.ProtectLow;
+    }
+    
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   public void Jump ()
@@ -162,7 +162,7 @@ public class Character : MonoBehaviour
 
     if (!IsActionAllowed ())
     {
-      // logger.Debug ("Not Allowed");
+      //logger.Debug ("Not Allowed");
       return;
     }
 
@@ -206,7 +206,7 @@ public class Character : MonoBehaviour
 //    m_characterAnims.SetProtectHigh (m_inputHighProtection);
 
     // change direction
-//    if (m_characterAnims.GetState () == AnimationState.Walk)
+    if (IsFlipAllowed ())
     {
       if (m_inputHorizontal > m_flipSpeed)
       {

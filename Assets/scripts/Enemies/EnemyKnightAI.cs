@@ -56,7 +56,7 @@ public class EnemyKnightAI : Character
     if (m_playerIsWithinRange)
     {
       Move (0f);
-      if (Random.value <= 0.3)
+      if (Random.value < 0.3)
         SwingLow ();
       else
         SwingHigh ();
