@@ -20,6 +20,8 @@ public class AttackableCharacter : Character
   {
     base.Start();
 
+    m_characterAnims.m_onStateChangeDelegate += OnStateChange;
+
     updateCurrentShield ();
   }
 
@@ -38,6 +40,20 @@ public class AttackableCharacter : Character
       return 0f;
 
     return input - absorbtion;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  void OnStateChange (AnimationState oldState, AnimationState newState)
+  {
+    if (newState == AnimationState.LieDead)
+    {
+      logger.Debug ("============ Lies dead ============");
+      Destroy (GetComponent<Rigidbody2D> ());
+      GetComponent<BoxCollider2D> ().enabled    = false;
+      GetComponent<CircleCollider2D> ().enabled = false;
+      enabled = false; // Disable script
+    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -83,11 +99,7 @@ public class AttackableCharacter : Character
       rigidbody2D.velocity = new Vector2 (-forceOutput, rigidbody2D.velocity.y);
 
     if (m_health <= 0f)
-    {
-      GetComponent<BoxCollider2D> ().enabled = false;
       m_characterAnims.Death ();
-      logger.Debug ("============ Died ============");
-    }
     else if (damageOutput >= m_damageAnimLimit)
     {
       SetFacingDirection (hitFromLeft);

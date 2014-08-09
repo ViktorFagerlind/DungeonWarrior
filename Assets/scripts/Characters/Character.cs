@@ -3,7 +3,6 @@ using System.Collections;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-[RequireComponent (typeof (Rigidbody2D))]
 public class Character : MonoBehaviour 
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

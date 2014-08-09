@@ -69,18 +69,10 @@ public class CharacterAnims : MonoBehaviour
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  public AnimationState GetState ()
+  private AnimationState DecodeState (AnimatorStateInfo stateInfo)
   {
-    AnimatorStateInfo stateInfo;
-    AnimationState    state;
-
-    // We want the target state if an animation has started...
-    if (m_animator.IsInTransition (0))
-      stateInfo = m_animator.GetNextAnimatorStateInfo (0);
-    else
-      stateInfo = m_animator.GetCurrentAnimatorStateInfo (0);
-
-    int stateNameHash = stateInfo.nameHash;
+    AnimationState state;
+    int            stateNameHash = stateInfo.nameHash;
 
     if (stateNameHash == m_walkStateHash)
       state = AnimationState.Walk;
@@ -110,10 +102,36 @@ public class CharacterAnims : MonoBehaviour
       state = AnimationState.Idle;
     }
 
+    return state;
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public AnimationState GetState ()
+  {
+    AnimationState state = DecodeState (m_animator.GetCurrentAnimatorStateInfo (0));
+
+    // For some animations we want the target state if an animation has started...
+    if (m_animator.IsInTransition (0))
+    {
+      AnimationState nextState = DecodeState (m_animator.GetNextAnimatorStateInfo (0));
+
+      if (nextState == AnimationState.Idle       ||
+          nextState == AnimationState.Walk       ||
+          nextState == AnimationState.Fall       ||
+          nextState == AnimationState.DamageHigh ||
+          nextState == AnimationState.DamageLow  ||
+          nextState == AnimationState.Death      ||
+          nextState == AnimationState.LieDead)
+        state = nextState;
+    }
+
     if (state != m_previousState)
     {
       m_onStateChangeDelegate (m_previousState, state);
       m_previousState = state;
+
+      // logger.Debug (gameObject.name + " changed state to " + state);
     }
 
     return state;

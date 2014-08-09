@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyKnightAI : Character 
+public class EnemyKnightAI : AttackableCharacter
 {	
   public enum State
   { 
