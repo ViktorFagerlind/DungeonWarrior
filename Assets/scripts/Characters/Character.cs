@@ -71,7 +71,7 @@ public class Character : MonoBehaviour
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  private bool IsFlipAllowed ()
+  private bool IsUserFlipAllowed ()
   {
     return  m_characterAnims.GetState () == AnimationState.Idle         || 
             m_characterAnims.GetState () == AnimationState.Walk         || 
@@ -87,11 +87,15 @@ public class Character : MonoBehaviour
     m_inputJump = true;
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public void Move (float horizontalFactor)
   {
     m_inputHorizontal = horizontalFactor;
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public void Protect (ProtectionType type)
   {
 /*
@@ -121,6 +125,8 @@ public class Character : MonoBehaviour
     }
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public void SwingHigh ()
   {
     if (!IsActionAllowed ())
@@ -129,6 +135,8 @@ public class Character : MonoBehaviour
     m_characterAnims.SwingHigh ();
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public void SwingLow ()
   {
     if (!IsActionAllowed ())
@@ -137,11 +145,26 @@ public class Character : MonoBehaviour
     m_characterAnims.SwingLow ();
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public void SetFacingDirection (bool faceLeft)
+  {
+    m_facingLeft = faceLeft;
+
+    transform.localScale = new Vector3(faceLeft ? m_initialScale.x : -m_initialScale.x, 
+                                       m_initialScale.y, 
+                                       m_initialScale.z);
+  }
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   // Use this for initialization
 	public virtual void Start () 
 	{
 	}
 	
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public virtual void FixedUpdate ()
 	{
 //    Debug.Log ("FixedUpdate");
@@ -197,6 +220,8 @@ public class Character : MonoBehaviour
     rigidbody2D.AddForce (force);
 	}
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public virtual void Update ()
   {
     // Update animation
@@ -206,18 +231,12 @@ public class Character : MonoBehaviour
 //    m_characterAnims.SetProtectHigh (m_inputHighProtection);
 
     // change direction
-    if (IsFlipAllowed ())
+    if (IsUserFlipAllowed ())
     {
       if (m_inputHorizontal > m_flipSpeed)
-      {
-        m_facingLeft = false;
-        transform.localScale = new Vector3(-m_initialScale.x, m_initialScale.y, m_initialScale.z);
-      }
+        SetFacingDirection (false);
       else if (m_inputHorizontal < -m_flipSpeed)
-      {
-        m_facingLeft = true;
-        transform.localScale = new Vector3(m_initialScale.x, m_initialScale.y, m_initialScale.z);
-      }
+        SetFacingDirection (true);
     }
 
   }

@@ -11,7 +11,7 @@ public class Player : AttackableCharacter
 		base.Start();
 	}
 	
-  public override void Update()
+  public override void Update ()
   {
     base.Update ();
 

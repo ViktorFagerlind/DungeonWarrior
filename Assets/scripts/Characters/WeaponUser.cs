@@ -47,7 +47,12 @@ public class WeaponUser : MonoBehaviour
     m_attachWeaponSprite.enabled = false;
     
     newWeapon.parent = attachWeapon;
-    Misc.resetTransform (newWeapon);  
+    Misc.resetTransform (newWeapon);
+
+    // Update shield in potential Attackable character
+    AttackableCharacter ac = GetComponent<AttackableCharacter> ();
+    if (ac != null)
+      ac.updateCurrentShield ();
   }
   
 

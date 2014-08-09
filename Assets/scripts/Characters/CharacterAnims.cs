@@ -11,7 +11,9 @@ public enum AnimationState
   ProtectHigh,
   ProtectLow,
   DamageHigh,
-  DamageLow
+  DamageLow,
+  Death,
+  LieDead
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -42,6 +44,7 @@ public class CharacterAnims : MonoBehaviour
   private int m_damageLowStateHash    = Animator.StringToHash("Base Layer.Low-Damage");
   private int m_idleStateHash         = Animator.StringToHash("Base Layer.Idle");
   private int m_deathStateHash        = Animator.StringToHash("Base Layer.Death");
+  private int m_lieDeadStateHash      = Animator.StringToHash("Base Layer.Lie dead");
 
   // parameter hashes
   private int m_groundedHash          = Animator.StringToHash ("Grounded");
@@ -98,7 +101,9 @@ public class CharacterAnims : MonoBehaviour
     else if (stateNameHash == m_idleStateHash)
       state = AnimationState.Idle;
     else if (stateNameHash == m_deathStateHash)
-      state = AnimationState.Idle;
+      state = AnimationState.Death;
+    else if (stateNameHash == m_lieDeadStateHash)
+      state = AnimationState.LieDead;
     else
     {
       logger.Error ("Unknown state!!!");
