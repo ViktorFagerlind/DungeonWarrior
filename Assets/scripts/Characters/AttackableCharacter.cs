@@ -99,7 +99,10 @@ public class AttackableCharacter : Character
       rigidbody2D.velocity = new Vector2 (-forceOutput, rigidbody2D.velocity.y);
 
     if (m_health <= 0f)
+    {
+      SetFacingDirection (hitFromLeft);
       m_characterAnims.Death ();
+    }
     else if (damageOutput >= m_damageAnimLimit)
     {
       SetFacingDirection (hitFromLeft);
