@@ -42,36 +42,55 @@ public class EnemyKnightAI : AttackableCharacter
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  private void IdleMode ()
+  private IEnumerator IdleMode ()
   {
-    Move (0f);
+    logger.Debug ("Enter IdleMode");
+
+    while (!m_playerIsWithinSight)
+    {
+      float r = Random.value;
+
+      if (r < 0.3)
+        Move (0f);
+      else if (r < 0.6)
+        Move (-1f);
+      else
+        Move (1f);
+
+      yield return new WaitForSeconds (1f);
+    }
 
     m_state = State.Attack;
-  }
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
-
-  IEnumerator Wait (float waitTime) 
-  {
-    yield return new WaitForSeconds (waitTime);
-    logger.Debug ("Done waiting");
+    logger.Debug ("Exit IdleMode");
+    yield break;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  private void AttackMode ()
+  private IEnumerator AttackMode ()
   {
+    logger.Debug ("Enter AttackMode");
     if (m_playerIsWithinRange)
     {
       if (Random.value < 0.3)
         SwingLow ();
       else
         SwingHigh ();
+
+      yield return new WaitForSeconds (1f);
     }
     else if (m_playerIsWithinSight)
+    {
       MoveTowardsPlayer ();
+      yield return new WaitForSeconds (1f);
+    }
     else
+    {
       m_state = State.Idle;
+      logger.Debug ("Exit AttackMode");
+      yield break;
+    }
   }
   
 
@@ -89,8 +108,10 @@ public class EnemyKnightAI : AttackableCharacter
   // Use this for initialization
 	public override void Start () 
 	{
-		base.Start();
-	}
+    base.Start();
+
+    StartCoroutine (UpdateStateMachine ());
+  }
 	
   // ---------------------------------------------------------------------------------------------------------------------------------
   
@@ -98,25 +119,33 @@ public class EnemyKnightAI : AttackableCharacter
   {
     base.Update ();
 
-    //StartCoroutine (Wait (5f));
-        
     m_playerIsLeft = m_player.transform.position.x < transform.position.x;
-
+    
     m_playerIsWithinRange = ((m_facingLeft && m_playerIsLeft) || (!m_facingLeft && !m_playerIsLeft)) &&
       (Mathf.Abs(transform.position.x - m_player.transform.position.x) < m_range);
-
+    
     m_playerIsWithinSight = ((m_facingLeft && m_playerIsLeft) || (!m_facingLeft && !m_playerIsLeft)) &&
       (Mathf.Abs(transform.position.x - m_player.transform.position.x) < m_sightRange);
+  }
 
-    switch (m_state)
+  // ---------------------------------------------------------------------------------------------------------------------------------
+
+  public IEnumerator UpdateStateMachine ()
+  {
+    while (true)
     {
-      case State.Idle:
-        IdleMode ();
-        break;
+      logger.Debug ("Main State Machine");
 
-      case State.Attack:
-        AttackMode ();
-        break;
+      switch (m_state)
+      {
+        case State.Idle:
+          yield return StartCoroutine (IdleMode ());
+          break;
+
+        case State.Attack:
+          yield return StartCoroutine (AttackMode ());
+          break;
+      }
     }
   }
 
