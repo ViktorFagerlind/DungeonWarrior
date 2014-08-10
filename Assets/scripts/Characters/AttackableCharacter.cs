@@ -114,7 +114,7 @@ public class AttackableCharacter : Character
     }
     else // Successful shield protection
     {
-      weapon.AbortSwing ();
+      weapon.m_charAnims.AbortSwing ();
     }
   }
 
@@ -135,25 +135,26 @@ public class AttackableCharacter : Character
 
 //    UnityEditor.EditorApplication.isPaused = true;
         
-    bool highHit      = contact.point.y >= transform.position.y + m_relativeMidpointY;
-    bool hitFromLeft  = contact.point.x < transform.position.x;
-
     AttackWeapon attackWeapon = otherHitObject.GetComponent<AttackWeapon> ();
+    attackWeapon.m_collider.enabled = false; // Disable collider to avoid awkward physics
 
-    attackWeapon.DisableCollider (); // Disable collider to avoid awkward physics
-
+    bool highHit      = contact.point.y >= transform.position.y + m_relativeMidpointY;
+    bool hitFromLeft  = attackWeapon.m_character.transform.position.x < transform.position.x;
+    
     float damageOutput, forceOutput;
     calculateOutput (attackWeapon.m_damage, attackWeapon.m_force, highHit, hitFromLeft, 
                      out damageOutput, out forceOutput);
 
     if (damageOutput <= 0f && forceOutput <= 0f)
       return;
-    
+
+    /*
     float currentTime = Time.time;
     if (currentTime < m_latestInjuryTime + m_damageCooldownInSeconds)
       return;
     
     m_latestInjuryTime = currentTime;
+    */
     
     // logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
     //               ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
