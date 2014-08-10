@@ -58,6 +58,7 @@ public class CharacterAnims : MonoBehaviour
   private int m_damageHighHash        = Animator.StringToHash ("DamageHigh");
   private int m_damageLowHash         = Animator.StringToHash ("DamageLow");
   private int m_deathHash             = Animator.StringToHash ("Death");
+  private int m_abortSwingHash        = Animator.StringToHash ("AbortSwing");
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
@@ -133,7 +134,7 @@ public class CharacterAnims : MonoBehaviour
       m_onStateChangeDelegate (m_previousState, state);
       m_previousState = state;
 
-      logger.Debug (gameObject.name + " changed state to " + state);
+      //logger.Debug (gameObject.name + " changed state to " + state);
     }
 
     return state;
@@ -146,6 +147,7 @@ public class CharacterAnims : MonoBehaviour
   public void SwingLow    ()    {m_animator.SetTrigger (m_swingLowHash);}
   public void DamageHigh  ()    {m_animator.SetTrigger (m_damageHighHash);}
   public void DamageLow   ()    {m_animator.SetTrigger (m_damageLowHash);}
+  public void AbortSwing  ()    {m_animator.SetTrigger (m_abortSwingHash);}
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   

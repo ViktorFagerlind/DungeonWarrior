@@ -87,7 +87,7 @@ public class AttackableCharacter : Character
   
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  void inflictInjury (float damageOutput, float forceOutput, bool hitFromLeft, bool highHit)
+  void inflictInjury (float damageOutput, float forceOutput, bool hitFromLeft, bool highHit, AttackWeapon weapon)
   {
     // logger.Debug ("Damage output: " + damage);
 
@@ -107,11 +107,14 @@ public class AttackableCharacter : Character
     {
       SetFacingDirection (hitFromLeft);
 
-      //UnityEditor.EditorApplication.isPaused = true;
       if (highHit)
         m_characterAnims.DamageHigh ();
       else
         m_characterAnims.DamageLow ();
+    }
+    else // Successful shield protection
+    {
+      weapon.AbortSwing ();
     }
   }
 
@@ -130,10 +133,14 @@ public class AttackableCharacter : Character
       return;
     }
 
+//    UnityEditor.EditorApplication.isPaused = true;
+        
     bool highHit      = contact.point.y >= transform.position.y + m_relativeMidpointY;
     bool hitFromLeft  = contact.point.x < transform.position.x;
 
     AttackWeapon attackWeapon = otherHitObject.GetComponent<AttackWeapon> ();
+
+    attackWeapon.DisableCollider (); // Disable collider to avoid awkward physics
 
     float damageOutput, forceOutput;
     calculateOutput (attackWeapon.m_damage, attackWeapon.m_force, highHit, hitFromLeft, 
@@ -151,6 +158,6 @@ public class AttackableCharacter : Character
     // logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
     //               ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
     
-    inflictInjury (damageOutput, forceOutput, hitFromLeft, highHit);
+    inflictInjury (damageOutput, forceOutput, hitFromLeft, highHit, attackWeapon);
   }
 }
