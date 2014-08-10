@@ -50,12 +50,19 @@ public class EnemyKnightAI : AttackableCharacter
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
+
+  IEnumerator Wait (float waitTime) 
+  {
+    yield return new WaitForSeconds (waitTime);
+    logger.Debug ("Done waiting");
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
   
   private void AttackMode ()
   {
     if (m_playerIsWithinRange)
     {
-      Move (0f);
       if (Random.value < 0.3)
         SwingLow ();
       else
@@ -91,6 +98,8 @@ public class EnemyKnightAI : AttackableCharacter
   {
     base.Update ();
 
+    //StartCoroutine (Wait (5f));
+        
     m_playerIsLeft = m_player.transform.position.x < transform.position.x;
 
     m_playerIsWithinRange = ((m_facingLeft && m_playerIsLeft) || (!m_facingLeft && !m_playerIsLeft)) &&
@@ -109,9 +118,6 @@ public class EnemyKnightAI : AttackableCharacter
         AttackMode ();
         break;
     }
-
-
-
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------

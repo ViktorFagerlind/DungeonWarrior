@@ -116,13 +116,15 @@ public class CharacterAnims : MonoBehaviour
     {
       AnimationState nextState = DecodeState (m_animator.GetNextAnimatorStateInfo (0));
 
-      if (nextState == AnimationState.Idle       ||
-          nextState == AnimationState.Walk       ||
-          nextState == AnimationState.Fall       ||
-          nextState == AnimationState.DamageHigh ||
-          nextState == AnimationState.DamageLow  ||
-          nextState == AnimationState.Death      ||
-          nextState == AnimationState.LieDead)
+      if ((state != AnimationState.DamageLow   &&
+           state != AnimationState.DamageHigh) &&
+          (nextState == AnimationState.Idle       ||
+           nextState == AnimationState.Walk       ||
+           nextState == AnimationState.Fall       ||
+           nextState == AnimationState.DamageHigh ||
+           nextState == AnimationState.DamageLow  ||
+           nextState == AnimationState.Death      ||
+           nextState == AnimationState.LieDead))
         state = nextState;
     }
 
@@ -131,7 +133,7 @@ public class CharacterAnims : MonoBehaviour
       m_onStateChangeDelegate (m_previousState, state);
       m_previousState = state;
 
-      // logger.Debug (gameObject.name + " changed state to " + state);
+      logger.Debug (gameObject.name + " changed state to " + state);
     }
 
     return state;

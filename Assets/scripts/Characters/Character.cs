@@ -148,7 +148,11 @@ public class Character : MonoBehaviour
   
   public void SetFacingDirection (bool faceLeft)
   {
+    if (faceLeft == m_facingLeft)
+      return;
+
     m_facingLeft = faceLeft;
+    logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
 
     transform.localScale = new Vector3(faceLeft ? m_initialScale.x : -m_initialScale.x, 
                                        m_initialScale.y, 

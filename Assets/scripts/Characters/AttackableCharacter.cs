@@ -148,8 +148,8 @@ public class AttackableCharacter : Character
     
     m_latestInjuryTime = currentTime;
     
-    logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
-                  ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
+    // logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
+    //               ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
     
     inflictInjury (damageOutput, forceOutput, hitFromLeft, highHit);
   }
