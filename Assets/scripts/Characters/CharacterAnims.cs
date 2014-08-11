@@ -112,6 +112,8 @@ public class CharacterAnims : MonoBehaviour
   {
     AnimationState state = DecodeState (m_animator.GetCurrentAnimatorStateInfo (0));
 
+    state.speed = 1;
+
     // For some animations we want the target state if an animation has started...
     if (m_animator.IsInTransition (0))
     {

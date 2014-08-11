@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
   public float                          m_jumpSpeed         = 4f;
   public float                          m_maxVelocityChange = 10f;
 
-  protected bool                        m_facingLeft = true;
+  [HideInInspector] public bool         m_facingLeft = true;
 
   // raycast stuff
   private CircleCollider2D              m_collider;
@@ -152,7 +152,7 @@ public class Character : MonoBehaviour
       return;
 
     m_facingLeft = faceLeft;
-    logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
+    // logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
 
     transform.localScale = new Vector3(faceLeft ? m_initialScale.x : -m_initialScale.x, 
                                        m_initialScale.y, 

@@ -1511,6 +1511,7 @@ GameObject:
   - 114: {fileID: 113486442}
   - 114: {fileID: 113486441}
   - 114: {fileID: 113486447}
+  - 114: {fileID: 113486448}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -1570,7 +1571,11 @@ MonoBehaviour:
   m_walkForce: 2
   m_jumpSpeed: 3
   m_maxVelocityChange: .5
-  m_health: 40
+  m_facingLeft: 1
+  m_maxHealth: 100
+  m_maxStamina: 100
+  m_health: 0
+  m_stamina: 0
   m_damageAnimLimit: 6
   m_relativeMidpointY: 1
   m_damageCooldownInSeconds: .5
@@ -1624,6 +1629,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabName: Rusty shield
   WeaponAttachName: Left-hand-weapon
+--- !u!114 &113486448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 113486439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9274562ebcabb44e8840348dd7d1a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_barSkin: {fileID: 11400000, guid: ec84b75004d83c84b99f2a6c2308d8c9, type: 2}
+  m_position: {x: 30, y: 20}
+  m_size: {x: 400, y: 8}
 --- !u!1 &120218957
 GameObject:
   m_ObjectHideFlags: 0
@@ -5064,7 +5083,11 @@ MonoBehaviour:
   m_walkForce: 1
   m_jumpSpeed: 3
   m_maxVelocityChange: .5
-  m_health: 50
+  m_facingLeft: 1
+  m_maxHealth: 100
+  m_maxStamina: 100
+  m_health: 0
+  m_stamina: 0
   m_damageAnimLimit: 6
   m_relativeMidpointY: 1.10000002
   m_damageCooldownInSeconds: 1

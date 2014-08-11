@@ -32,5 +32,9 @@ public class Misc : MonoBehaviour
       GameObject.Destroy (child.gameObject);
   }
 
+  static public Color createColor256 (int r, int g, int b)
+  {
+    return new Color ((float)r / 256f, (float)g / 256f, (float)b / 256f);
+  }
 
 }

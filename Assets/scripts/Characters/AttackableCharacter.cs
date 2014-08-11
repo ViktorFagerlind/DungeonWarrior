@@ -5,12 +5,19 @@ public class AttackableCharacter : Character
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-  public  float m_health                   = 100f;
+  public  float m_maxHealth                = 100f;
+  public  float m_maxStamina               = 100f;
+
+  [HideInInspector] public  float m_health;
+  [HideInInspector] public  float m_stamina;
+  
   public  float m_damageAnimLimit          = 6f;
   public  float m_relativeMidpointY        = 1f;
   public  float m_damageCooldownInSeconds  = 1f;
 
-  private float m_latestInjuryTime         = 0f;
+  public bool isDead {get {return m_health <= 0f;}}
+
+  //private float m_latestInjuryTime         = 0f;
 
   private Shield m_shield;    // current shield, null if none.
 
@@ -19,6 +26,9 @@ public class AttackableCharacter : Character
   public override void Start () 
   {
     base.Start();
+
+    m_health  = m_maxHealth;
+    m_stamina = m_maxStamina;
 
     m_characterAnims.m_onStateChangeDelegate += OnStateChange;
 
@@ -98,7 +108,7 @@ public class AttackableCharacter : Character
     else
       rigidbody2D.velocity = new Vector2 (-forceOutput, rigidbody2D.velocity.y);
 
-    if (m_health <= 0f)
+    if (isDead)
     {
       SetFacingDirection (hitFromLeft);
       m_characterAnims.Death ();
@@ -124,7 +134,6 @@ public class AttackableCharacter : Character
   {
     ContactPoint2D contact    = collision.contacts[0];   
     
-    GameObject myHitObject    = contact.otherCollider.gameObject;
     GameObject otherHitObject = contact.collider.gameObject;
     
     if (otherHitObject.tag != "AttackWeapon")
@@ -156,6 +165,7 @@ public class AttackableCharacter : Character
     m_latestInjuryTime = currentTime;
     */
     
+    // GameObject myHitObject    = contact.otherCollider.gameObject;
     // logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
     //               ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
     

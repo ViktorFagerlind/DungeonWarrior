@@ -71,6 +71,7 @@ public class EnemyKnightAI : AttackableCharacter
   private IEnumerator AttackMode ()
   {
     logger.Debug ("Enter AttackMode");
+
     if (m_playerIsWithinRange)
     {
       if (Random.value < 0.3)
@@ -126,6 +127,9 @@ public class EnemyKnightAI : AttackableCharacter
     
     m_playerIsWithinSight = ((m_facingLeft && m_playerIsLeft) || (!m_facingLeft && !m_playerIsLeft)) &&
       (Mathf.Abs(transform.position.x - m_player.transform.position.x) < m_sightRange);
+
+    m_playerIsWithinRange &= !m_player.isDead;
+    m_playerIsWithinSight &= !m_player.isDead;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
