@@ -1353,8 +1353,8 @@ MonoBehaviour:
   m_walkForce: 1
   m_jumpSpeed: 3
   m_maxVelocityChange: .5
-  m_attackSound: {fileID: 0}
-  m_damagedSound: {fileID: 8300000, guid: f25a75147be6bfd4b8e4454bf741e1da, type: 3}
+  m_attackSound: {fileID: 8300000, guid: d8608577bf00c604ea8dc7776d7e1a27, type: 3}
+  m_damagedSound: {fileID: 8300000, guid: 06f95954c2c80bf46a160998d5eb5d44, type: 3}
   m_deathSound: {fileID: 8300000, guid: 355ee659c2efc6f4d84c9e31a9828385, type: 3}
   m_facingLeft: 1
   m_health: 50

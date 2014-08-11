@@ -48,6 +48,8 @@ public class Character : MonoBehaviour
 
   protected   CharacterAnims            m_characterAnims;
 
+  protected   AudioSource               m_audioFx;
+
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   public bool  grounded           {get {return m_grounded;}}
@@ -59,8 +61,8 @@ public class Character : MonoBehaviour
   {
     if (clip)
     {
-      audio.clip = clip;
-      audio.Play ();
+      m_audioFx.clip = clip;
+      m_audioFx.Play ();
     }
   }
     
@@ -115,6 +117,8 @@ public class Character : MonoBehaviour
   // Use this for initialization
   public virtual void Start () 
   {
+    m_audioFx = GetComponents<AudioSource> ()[0];
+
     m_characterAnims.m_onStateChangeDelegate += OnStateChange;
   }
     

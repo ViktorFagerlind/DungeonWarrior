@@ -5,15 +5,29 @@ public class Player : AttackableCharacter
 {	
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+  private AudioSource m_audioSteps;
+  public  AudioClip   m_stepSound;
+
 	// Use this for initialization
 	public override void Start () 
 	{
 		base.Start();
+
+    m_audioSteps = GetComponents<AudioSource> ()[1];
+    m_audioSteps.clip = m_stepSound;
+    m_audioSteps.loop = true;
 	}
 	
   public override void Update ()
   {
     base.Update ();
+
+    if (!m_audioSteps.isPlaying &&
+        Mathf.Abs (m_horizontalSpeed) > 0.3f && m_characterAnims.GetState () == AnimationState.IdleToRun)
+      m_audioSteps.Play ();
+    else if (m_audioSteps.isPlaying &&
+      Mathf.Abs (m_horizontalSpeed) < 0.3f || m_characterAnims.GetState () != AnimationState.IdleToRun)
+      m_audioSteps.Pause ();
 
     if (Input.GetButtonDown ("Jump"))
     {
