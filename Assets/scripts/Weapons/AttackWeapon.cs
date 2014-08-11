@@ -1,13 +1,23 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof (BoxCollider2D))]
+[RequireComponent (typeof (BoxCollider2D), typeof (AudioSource))]
 public class AttackWeapon : MonoBehaviour
 {
+  public enum HitType
+  { 
+    Armor,
+    Shield
+  };
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
   
-  public float m_damage = 10f;
-  public float m_force  = 1000f;
+  public float      m_damage = 10f;
+  public float      m_force  = 1000f;
+  public AudioClip  m_hitArmorSound;
+  public AudioClip  m_hitShieldSound;
 
   [HideInInspector] public Character       m_character;
   [HideInInspector] public BoxCollider2D   m_collider;
@@ -18,6 +28,23 @@ public class AttackWeapon : MonoBehaviour
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
+  public void OnHit (HitType hitType)
+  {
+    switch (hitType)
+    {
+      case HitType.Shield: 
+        audio.clip = m_hitShieldSound;
+        break;
+      case HitType.Armor: 
+        audio.clip = m_hitArmorSound;
+        break;
+    }
+
+    audio.Play ();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   void Start ()
   {
     m_collider  = GetComponent<BoxCollider2D> ();
@@ -25,6 +52,8 @@ public class AttackWeapon : MonoBehaviour
     m_character = GetComponentInParent<Character> ();
 
     m_collider.enabled = false;
+
+    m_swingingBack = false;
 
     if (m_charAnims != null)
       m_charAnims.m_onStateChangeDelegate += OnStateChange;
@@ -39,7 +68,7 @@ public class AttackWeapon : MonoBehaviour
 
     float currentRelX = transform.position.x - m_character.transform.position.x;
 
-    //logger.Debug (gameObject.name + "prev x:" + m_previousRelX + ", x:" + currentRelX);
+    //logger.Debug (gameObject.name + "prev x:" + m_previousRelX + ", x:" + currentRelX + "(" + transform.position.x + ", " + m_character.transform.position.x + ")");
 
     // Enable the collider when the weapon is moving forward, to avoid hit when raising the sword...
     if (( m_character.m_facingLeft && (currentRelX < m_previousRelX)) ||
@@ -69,15 +98,15 @@ public class AttackWeapon : MonoBehaviour
     if ((newState == AnimationState.SwingHigh) || (newState == AnimationState.SwingLow))
     {
       m_swingingBack = true;      // Starting swing by raising weapon
+      m_previousRelX = transform.position.x - m_character.transform.position.x;
       //logger.Debug (gameObject.name + ": Raise sword");
     }
     else if ((oldState == AnimationState.SwingHigh) || (oldState == AnimationState.SwingLow))
     {
-      m_collider.enabled = false;  // Swing ended
+      m_swingingBack      = false;  // Should not be neccesary, but...
+      m_collider.enabled  = false;  // Swing ended
       //logger.Debug (gameObject.name + ": Swing done");
+      //UnityEditor.EditorApplication.isPaused = true;
     }
-
-    if (m_swingingBack)
-      m_previousRelX = transform.position.x - m_character.transform.position.x;
   }
 }

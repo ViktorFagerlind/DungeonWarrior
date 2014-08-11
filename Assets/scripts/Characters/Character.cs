@@ -3,7 +3,8 @@ using System.Collections;
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-public class Character : MonoBehaviour 
+[RequireComponent (typeof (AudioSource))]
+public class Character : MonoBehaviour
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -20,6 +21,12 @@ public class Character : MonoBehaviour
 	public float                          m_walkForce         = 3f;
   public float                          m_jumpSpeed         = 4f;
   public float                          m_maxVelocityChange = 10f;
+
+  // Sounds
+  public AudioClip                      m_attackSound;
+  public AudioClip                      m_damagedSound;
+  public AudioClip                      m_deathSound;
+    
 
   [HideInInspector] public bool         m_facingLeft = true;
 
@@ -47,6 +54,48 @@ public class Character : MonoBehaviour
   public float m_horizontalSpeed  {get {return rigidbody2D.velocity.x;}}
     
   // ---------------------------------------------------------------------------------------------------------------------------------
+
+  void PlaySound (AudioClip clip)
+  {
+    if (clip)
+    {
+      audio.clip = clip;
+      audio.Play ();
+    }
+  }
+    
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  void OnStateChange (AnimationState oldState, AnimationState newState)
+  {
+    switch (newState)
+    {
+      case AnimationState.SwingHigh:
+      case AnimationState.SwingLow:
+        PlaySound (m_attackSound);
+        break;
+
+      case AnimationState.Death:
+        logger.Debug ("Entered death state");
+        PlaySound (m_deathSound);
+        break;
+                
+      case AnimationState.DamageHigh:
+      case AnimationState.DamageLow:
+        PlaySound (m_damagedSound);
+        break;
+                
+      case AnimationState.LieDead:
+        logger.Debug ("============ Lies dead ============");
+        Destroy (GetComponent<Rigidbody2D> ());
+        GetComponent<BoxCollider2D> ().enabled    = false;
+        GetComponent<CircleCollider2D> ().enabled = false;
+                enabled = false; // Disable script
+        break;
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
   
   public virtual void Awake ()
 	{
@@ -60,20 +109,27 @@ public class Character : MonoBehaviour
     m_initialScale = transform.localScale;
   }
 
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  // Use this for initialization
+  public virtual void Start () 
+  {
+    m_characterAnims.m_onStateChangeDelegate += OnStateChange;
+  }
+    
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   private bool IsActionAllowed ()
   {
-    return m_characterAnims.GetState () == AnimationState.Idle || 
-           m_characterAnims.GetState () == AnimationState.Walk;
+    return m_characterAnims.GetState () == AnimationState.IdleToRun;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   private bool IsUserFlipAllowed ()
   {
-    return  m_characterAnims.GetState () == AnimationState.Idle         || 
-            m_characterAnims.GetState () == AnimationState.Walk         || 
+    return  m_characterAnims.GetState () == AnimationState.IdleToRun    || 
             m_characterAnims.GetState () == AnimationState.Fall         || 
             m_characterAnims.GetState () == AnimationState.ProtectHigh  || 
             m_characterAnims.GetState () == AnimationState.ProtectLow;
@@ -158,14 +214,7 @@ public class Character : MonoBehaviour
                                        m_initialScale.y, 
                                        m_initialScale.z);
   }
-  
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  
-  // Use this for initialization
-	public virtual void Start () 
-	{
-	}
-	
+
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   public virtual void FixedUpdate ()

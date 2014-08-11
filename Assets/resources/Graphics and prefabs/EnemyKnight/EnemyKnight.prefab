@@ -449,6 +449,7 @@ GameObject:
   - 114: {fileID: 11400028}
   - 114: {fileID: 11400032}
   - 114: {fileID: 11400034}
+  - 82: {fileID: 8200000}
   m_Layer: 11
   m_Name: EnemyKnight
   m_TagString: Untagged
@@ -941,7 +942,7 @@ Transform:
   m_GameObject: {fileID: 100054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: -2.94095278, z: 0}
-  m_LocalScale: {x: .139267966, y: .139267996, z: .139267996}
+  m_LocalScale: {x: .150000006, y: .150000006, z: .150000006}
   m_Children:
   - {fileID: 400038}
   m_Father: {fileID: 0}
@@ -1086,6 +1087,64 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 4.71000004, y: 9.02000046}
   m_Center: {x: -.720000029, y: 7.23999977}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100054}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -1148,7 +1207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e90b68331e40f45b26236246c203fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortingOrder: 0
+  SortingOrder: 2
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1172,7 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e90b68331e40f45b26236246c203fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortingOrder: 0
+  SortingOrder: 11
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1294,11 +1353,18 @@ MonoBehaviour:
   m_walkForce: 1
   m_jumpSpeed: 3
   m_maxVelocityChange: .5
+  m_attackSound: {fileID: 0}
+  m_damagedSound: {fileID: 8300000, guid: f25a75147be6bfd4b8e4454bf741e1da, type: 3}
+  m_deathSound: {fileID: 8300000, guid: 355ee659c2efc6f4d84c9e31a9828385, type: 3}
+  m_facingLeft: 1
   m_health: 50
+  m_stamina: 0
+  m_maxHealth: 30
+  m_maxStamina: 100
   m_damageAnimLimit: 6
   m_relativeMidpointY: 1.10000002
   m_damageCooldownInSeconds: 1
-  m_range: 1.5
+  m_range: 1.79999995
   m_sightRange: 7
 --- !u!114 &11400032
 MonoBehaviour:
@@ -1349,7 +1415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e90b68331e40f45b26236246c203fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortingOrder: 0
+  SortingOrder: 13
 --- !u!114 &11400040
 MonoBehaviour:
   m_ObjectHideFlags: 1

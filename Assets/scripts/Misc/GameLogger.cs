@@ -8,6 +8,8 @@ public class GameLogger
   Stack<string>   m_contextStack;
   private string  m_className;
 
+  public bool LogEnabled {get; set;}
+
   public static GameLogger GetLogger (System.Type t)
   {
     return new GameLogger (t);
@@ -17,6 +19,8 @@ public class GameLogger
   {
     m_contextStack  = new Stack<string> ();
     m_className     = t.ToString ();
+
+    LogEnabled = true;
   }
 
   private string getContext ()
@@ -36,17 +40,26 @@ public class GameLogger
 
   public void Debug (string message)
   {
-    UnityEngine.Debug.Log ("DEBUG   " + getTimeString () + m_className + "   [" + getContext () + "] - " + message);
+    if (!LogEnabled)
+      return;
+
+    UnityEngine.Debug.Log (getTimeString () + m_className + "   [" + getContext () + "] - " + message);
   }
 
   public void Warning (string message)
   {
-    UnityEngine.Debug.Log ("WARNING " + getTimeString () + m_className + "   [" + getContext () + "] - " + message);
+    if (!LogEnabled)
+      return;
+    
+    UnityEngine.Debug.LogWarning (getTimeString () + m_className + "   [" + getContext () + "] - " + message);
   }
 
   public void Error (string message)
   {
-    UnityEngine.Debug.Log ("ERROR   " + getTimeString () + m_className + "   [" + getContext () + "] - " + message);
+    if (!LogEnabled)
+      return;
+    
+    UnityEngine.Debug.LogError (getTimeString () + m_className + "   [" + getContext () + "] - " + message);
   }
   public void PushContext (string context)
   {

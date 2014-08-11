@@ -20,6 +20,8 @@ public class EnemyKnightAI : AttackableCharacter
   private bool m_playerIsWithinRange;
   private bool m_playerIsWithinSight;
 
+  private float m_moveSpeed = 0f;
+
   private State m_state = State.Idle;
 
   Player m_player;
@@ -28,16 +30,16 @@ public class EnemyKnightAI : AttackableCharacter
   
   private void MoveTowardsPlayer ()
   {
-    float dir;
-
     if (m_playerIsWithinRange)
-      dir = 0f;
+      m_moveSpeed = 0f;
     else if (m_playerIsLeft)
-      dir = -1f;
+      m_moveSpeed -= 0.1f;
     else 
-      dir = 1f;
+      m_moveSpeed += 0.1f;
 
-    Move (dir);
+    m_moveSpeed = Mathf.Clamp (m_moveSpeed, -1f, 1f);    
+
+    Move (m_moveSpeed);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -48,14 +50,15 @@ public class EnemyKnightAI : AttackableCharacter
 
     while (!m_playerIsWithinSight)
     {
-      float r = Random.value;
-
-      if (r < 0.3)
-        Move (0f);
-      else if (r < 0.6)
-        Move (-1f);
+      m_moveSpeed += Random.Range (-1f, 1f);
+      if (Mathf.Abs (m_moveSpeed) < 0.5f)
+        m_moveSpeed = 0f;
+      if (m_moveSpeed > 0f)
+        m_moveSpeed = Mathf.Clamp (m_moveSpeed, 0.5f, 1f);
       else
-        Move (1f);
+        m_moveSpeed = Mathf.Clamp (m_moveSpeed, -1f, -0.5f);
+
+      Move (m_moveSpeed);
 
       yield return new WaitForSeconds (1f);
     }
@@ -74,17 +77,19 @@ public class EnemyKnightAI : AttackableCharacter
 
     if (m_playerIsWithinRange)
     {
+      Move (0f);
+
       if (Random.value < 0.3)
         SwingLow ();
       else
         SwingHigh ();
 
-      yield return new WaitForSeconds (1f);
+      yield return new WaitForSeconds (Random.Range (0.6f, 3f));
     }
     else if (m_playerIsWithinSight)
     {
       MoveTowardsPlayer ();
-      yield return new WaitForSeconds (1f);
+      yield return new WaitForSeconds (0.3f);
     }
     else
     {
@@ -110,6 +115,8 @@ public class EnemyKnightAI : AttackableCharacter
 	public override void Start () 
 	{
     base.Start();
+
+    logger.LogEnabled = false;
 
     StartCoroutine (UpdateStateMachine ());
   }

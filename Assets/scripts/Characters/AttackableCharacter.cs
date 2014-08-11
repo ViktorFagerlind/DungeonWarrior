@@ -5,21 +5,22 @@ public class AttackableCharacter : Character
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-  public  float m_maxHealth                = 100f;
-  public  float m_maxStamina               = 100f;
-
   [HideInInspector] public  float m_health;
   [HideInInspector] public  float m_stamina;
   
-  public  float m_damageAnimLimit          = 6f;
-  public  float m_relativeMidpointY        = 1f;
-  public  float m_damageCooldownInSeconds  = 1f;
+  public  float     m_maxHealth                = 100f;
+  public  float     m_maxStamina               = 100f;
+
+  public  float     m_damageAnimLimit          = 6f;
+  public  float     m_relativeMidpointY        = 1f;
+  public  float     m_damageCooldownInSeconds  = 1f;
 
   public bool isDead {get {return m_health <= 0f;}}
 
   //private float m_latestInjuryTime         = 0f;
 
   private Shield m_shield;    // current shield, null if none.
+
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
@@ -29,8 +30,6 @@ public class AttackableCharacter : Character
 
     m_health  = m_maxHealth;
     m_stamina = m_maxStamina;
-
-    m_characterAnims.m_onStateChangeDelegate += OnStateChange;
 
     updateCurrentShield ();
   }
@@ -50,20 +49,6 @@ public class AttackableCharacter : Character
       return 0f;
 
     return input - absorbtion;
-  }
-
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  
-  void OnStateChange (AnimationState oldState, AnimationState newState)
-  {
-    if (newState == AnimationState.LieDead)
-    {
-      logger.Debug ("============ Lies dead ============");
-      Destroy (GetComponent<Rigidbody2D> ());
-      GetComponent<BoxCollider2D> ().enabled    = false;
-      GetComponent<CircleCollider2D> ().enabled = false;
-      enabled = false; // Disable script
-    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -110,11 +95,15 @@ public class AttackableCharacter : Character
 
     if (isDead)
     {
+      weapon.OnHit (AttackWeapon.HitType.Armor);
+
       SetFacingDirection (hitFromLeft);
       m_characterAnims.Death ();
     }
     else if (damageOutput >= m_damageAnimLimit)
     {
+      weapon.OnHit (AttackWeapon.HitType.Armor);
+      
       SetFacingDirection (hitFromLeft);
 
       if (highHit)
@@ -122,8 +111,10 @@ public class AttackableCharacter : Character
       else
         m_characterAnims.DamageLow ();
     }
-    else // Successful shield protection
+    else // Not much damage, typically shield protection
     {
+      weapon.OnHit (AttackWeapon.HitType.Shield);
+      
       weapon.m_charAnims.AbortSwing ();
     }
   }
@@ -142,8 +133,6 @@ public class AttackableCharacter : Character
       return;
     }
 
-//    UnityEditor.EditorApplication.isPaused = true;
-        
     AttackWeapon attackWeapon = otherHitObject.GetComponent<AttackWeapon> ();
     attackWeapon.m_collider.enabled = false; // Disable collider to avoid awkward physics
 
@@ -154,17 +143,6 @@ public class AttackableCharacter : Character
     calculateOutput (attackWeapon.m_damage, attackWeapon.m_force, highHit, hitFromLeft, 
                      out damageOutput, out forceOutput);
 
-    if (damageOutput <= 0f && forceOutput <= 0f)
-      return;
-
-    /*
-    float currentTime = Time.time;
-    if (currentTime < m_latestInjuryTime + m_damageCooldownInSeconds)
-      return;
-    
-    m_latestInjuryTime = currentTime;
-    */
-    
     // GameObject myHitObject    = contact.otherCollider.gameObject;
     // logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
     //               ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
