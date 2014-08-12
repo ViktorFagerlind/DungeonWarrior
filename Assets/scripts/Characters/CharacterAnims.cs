@@ -59,12 +59,19 @@ public class CharacterAnims : MonoBehaviour
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  void Awake()
+  void Awake ()
 	{
 		// cache components to save on performance
     m_animator  = GetComponentInChildren<Animator> ();
 	}
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  void Start ()
+  {
+    logger.LogEnabled = false;
+  }
+  
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   private AnimationState DecodeState (AnimatorStateInfo stateInfo)
@@ -127,6 +134,7 @@ public class CharacterAnims : MonoBehaviour
 
     if (state != m_previousState)
     {
+      logger.LogEnabled = false;
       logger.Debug (gameObject.name + " changed state to " + state);
       m_onStateChangeDelegate (m_previousState, state);
       m_previousState = state;

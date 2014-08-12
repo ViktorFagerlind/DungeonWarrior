@@ -46,7 +46,7 @@ public class Character : MonoBehaviour
   private float                         m_inputHorizontal     = 0.0f;
   private bool                          m_inputJump           = false;
 
-  protected   CharacterAnims            m_characterAnims;
+  public      CharacterAnims            m_characterAnims;
 
   protected   AudioSource               m_audioFx;
 
@@ -119,12 +119,21 @@ public class Character : MonoBehaviour
   {
     m_audioFx = GetComponents<AudioSource> ()[0];
 
+    logger.LogEnabled = false;
+
     m_characterAnims.m_onStateChangeDelegate += OnStateChange;
+  }
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  void OnDestroy ()
+  {
+    m_characterAnims.m_onStateChangeDelegate -= OnStateChange;
   }
     
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  private bool IsActionAllowed ()
+  protected bool IsActionAllowed ()
   {
     return m_characterAnims.GetState () == AnimationState.IdleToRun;
   }

@@ -24,7 +24,7 @@ public class Shield : MonoBehaviour
     CharacterAnims charAnims = GetComponentInParent<CharacterAnims> ();
     
     if (charAnims != null)
-      charAnims.m_onStateChangeDelegate += OnStateChange;
+      charAnims.m_onStateChangeDelegate -= OnStateChange;
   }
   
   void OnStateChange (AnimationState oldState, AnimationState newState)

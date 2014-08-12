@@ -143,10 +143,11 @@ public class AttackableCharacter : Character
     calculateOutput (attackWeapon.m_damage, attackWeapon.m_force, highHit, hitFromLeft, 
                      out damageOutput, out forceOutput);
 
-    // GameObject myHitObject    = contact.otherCollider.gameObject;
-    // logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
-    //               ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
+    GameObject myHitObject = contact.otherCollider.gameObject;
+    logger.Debug (myHitObject.name  + " (y:" + myHitObject.transform.position.y + " injured by " + otherHitObject.name + " at y:" + contact.point.y +
+                  ". damageOutput: " + damageOutput + " forceOutput: " + forceOutput);
     
+    //UnityEditor.EditorApplication.isPaused = true;
     inflictInjury (damageOutput, forceOutput, hitFromLeft, highHit, attackWeapon);
   }
 }
