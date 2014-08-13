@@ -6,8 +6,8 @@ public class AttackWeapon : MonoBehaviour
 {
   public enum HitType
   { 
-    Armor,
-    Shield
+    Unprotected,
+    Protected
   };
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -32,10 +32,10 @@ public class AttackWeapon : MonoBehaviour
   {
     switch (hitType)
     {
-      case HitType.Shield: 
+      case HitType.Protected: 
         audio.clip = m_hitShieldSound;
         break;
-      case HitType.Armor: 
+      case HitType.Unprotected: 
         audio.clip = m_hitArmorSound;
         break;
     }

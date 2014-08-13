@@ -58,7 +58,7 @@ public class CharacterAnims : MonoBehaviour
   private int m_abortSwingHash        = Animator.StringToHash ("AbortSwing");
 
   // ---------------------------------------------------------------------------------------------------------------------------------
-  
+
   void Awake ()
 	{
 		// cache components to save on performance
@@ -69,7 +69,7 @@ public class CharacterAnims : MonoBehaviour
   
   void Start ()
   {
-    logger.LogEnabled = false;
+    //logger.LogEnabled = false;
   }
   
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,6 @@ public class CharacterAnims : MonoBehaviour
 
     if (state != m_previousState)
     {
-      logger.LogEnabled = false;
       logger.Debug (gameObject.name + " changed state to " + state);
       m_onStateChangeDelegate (m_previousState, state);
       m_previousState = state;

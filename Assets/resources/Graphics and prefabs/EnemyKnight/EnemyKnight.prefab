@@ -1056,7 +1056,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100054}
-  m_Mass: 100
+  m_Mass: 150
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 1
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40b4dbe335095442ab62ec434b79a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_walkForce: 1
+  m_walkVelocity: 1
   m_jumpSpeed: 3
   m_maxVelocityChange: .5
   m_attackSound: {fileID: 8300000, guid: d8608577bf00c604ea8dc7776d7e1a27, type: 3}

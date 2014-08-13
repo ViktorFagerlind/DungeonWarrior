@@ -18,37 +18,37 @@ public class Character : MonoBehaviour
   // ---------------------------------------------------------------------------------------------------------------------------------
 
   // edit these to tune character movement	
-	public float                          m_walkForce         = 3f;
-  public float                          m_jumpSpeed         = 4f;
-  public float                          m_maxVelocityChange = 10f;
+	public float                            m_walkVelocity      = 3f;
+  public float                            m_jumpSpeed         = 4f;
+  public float                            m_maxVelocityChange = 10f;
 
   // Sounds
-  public AudioClip                      m_attackSound;
-  public AudioClip                      m_damagedSound;
-  public AudioClip                      m_deathSound;
+  public AudioClip                        m_attackSound;
+  public AudioClip                        m_damagedSound;
+  public AudioClip                        m_deathSound;
     
-
-  [HideInInspector] public bool         m_facingLeft = true;
+  [HideInInspector] public bool           m_facingLeft = true;
+  
+  [HideInInspector] public CharacterAnims m_characterAnims;
+  
+  protected   Vector2                     m_hitForceToApply = new Vector2 (0f, 0f);
+  protected   AudioSource                 m_audioFx;
 
   // raycast stuff
-  private CircleCollider2D              m_collider;
-  private Vector2                       m_leftRayOrigin;
-  private Vector2                       m_rightRayOrigin;
-  private float                         m_rayLength;
-  private Vector3                       m_initialScale;
+  private CircleCollider2D                m_collider;
+  private Vector2                         m_leftRayOrigin;
+  private Vector2                         m_rightRayOrigin;
+  private float                           m_rayLength;
+  private Vector3                         m_initialScale;
 
-  private float                         m_flipSpeed = 0.05f;
+  private float                           m_flipSpeed = 0.05f;
 
-  private readonly int                  m_groundMask = 1 << 8; // Ground layer mask
+  private readonly int                    m_groundMask = 1 << 8; // Ground layer mask
 
-  private bool                          m_grounded        = false;
+  private bool                            m_grounded        = false;
 
-  private float                         m_inputHorizontal     = 0.0f;
-  private bool                          m_inputJump           = false;
-
-  public      CharacterAnims            m_characterAnims;
-
-  protected   AudioSource               m_audioFx;
+  private float                           m_inputHorizontal     = 0.0f;
+  private bool                            m_inputJump           = false;
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
@@ -78,21 +78,22 @@ public class Character : MonoBehaviour
         break;
 
       case AnimationState.Death:
-        logger.Debug ("Entered death state");
+        logger.Debug (gameObject.name + ": Entered death state");
         PlaySound (m_deathSound);
         break;
                 
       case AnimationState.DamageHigh:
       case AnimationState.DamageLow:
         PlaySound (m_damagedSound);
+
         break;
                 
       case AnimationState.LieDead:
-        logger.Debug ("============ Lies dead ============");
+        logger.Debug ("============ " + gameObject.name + " lies dead ============");
         Destroy (GetComponent<Rigidbody2D> ());
         GetComponent<BoxCollider2D> ().enabled    = false;
         GetComponent<CircleCollider2D> ().enabled = false;
-                enabled = false; // Disable script
+        enabled = false; // Disable script
         break;
     }
   }
@@ -119,7 +120,7 @@ public class Character : MonoBehaviour
   {
     m_audioFx = GetComponents<AudioSource> ()[0];
 
-    logger.LogEnabled = false;
+    //logger.LogEnabled = false;
 
     m_characterAnims.m_onStateChangeDelegate += OnStateChange;
   }
@@ -221,7 +222,7 @@ public class Character : MonoBehaviour
       return;
 
     m_facingLeft = faceLeft;
-    // logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
+    logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
 
     transform.localScale = new Vector3(faceLeft ? m_initialScale.x : -m_initialScale.x, 
                                        m_initialScale.y, 
@@ -232,10 +233,6 @@ public class Character : MonoBehaviour
   
   public virtual void FixedUpdate ()
 	{
-//    Debug.Log ("FixedUpdate");
-
-    Vector2 force;
-
     // use raycasts to determine if the player is standing on the ground or not
     Vector2 pos2d = new Vector2 (m_collider.transform.position.x, m_collider.transform.position.y);
     
@@ -243,6 +240,19 @@ public class Character : MonoBehaviour
       Physics2D.Raycast (pos2d + m_rightRayOrigin, -Vector2.up, m_rayLength, m_groundMask);
 
     //Debug.Log ("Grounded: " + m_grounded);
+
+    // Apply force from hit?
+    if (Mathf.Abs (m_hitForceToApply.x) > 0f)
+    {
+      //rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
+
+      rigidbody2D.AddForce (m_hitForceToApply);
+      SetFacingDirection (m_hitForceToApply.x > 0f);
+
+      m_hitForceToApply = new Vector2 (0f, 0f);
+
+      return;
+    }
 
     // Let the physics to the work if we don't have ground contact.
 //    if (!m_grounded)
@@ -254,34 +264,26 @@ public class Character : MonoBehaviour
       return;
     }
 
-    // logger.Debug ("Allowed");
+    if (m_inputJump)
+    {
+      m_inputJump = false;
+      if (IsActionAllowed ())
+        rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, m_jumpSpeed);
+    }
 
     // Calculate force along ground plane
     Vector2 targetVelocity  = new Vector2 ();
     
-    targetVelocity.x        = m_walkForce * m_inputHorizontal;
+    targetVelocity.x        = m_walkVelocity * m_inputHorizontal;
     Vector2 velocity        = rigidbody2D.velocity;
     Vector2 velocityChange  = targetVelocity - velocity;
     velocityChange.x = Mathf.Clamp(velocityChange.x, -m_maxVelocityChange, m_maxVelocityChange);
     velocityChange.y = 0;
 
     // f = m * a; dv = dt * a => dv = dt * f/m => f = m * dv / dt
-    force = rigidbody2D.mass * velocityChange / Time.fixedDeltaTime;
+    Vector2 force = rigidbody2D.mass * velocityChange / Time.fixedDeltaTime;
 
-    if (m_inputJump)
-    {
-      m_inputJump = false;
-
-      if (IsActionAllowed ())
-      {
-        //logger.Debug ("Jump!");
-
-        //force.y += m_jumpForce;
-        rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, m_jumpSpeed);
-      }
-
-    }
-
+    //logger.Debug (gameObject.name +  ": Apply move force");
     rigidbody2D.AddForce (force);
 	}
 

@@ -89,23 +89,21 @@ public class AttackableCharacter : Character
     m_health -= damageOutput;
 
     if (hitFromLeft)
-      rigidbody2D.velocity = new Vector2 (forceOutput, rigidbody2D.velocity.y);
+      m_hitForceToApply = new Vector2 (forceOutput, 0f);
     else
-      rigidbody2D.velocity = new Vector2 (-forceOutput, rigidbody2D.velocity.y);
+      m_hitForceToApply = new Vector2 (-forceOutput, 0f);
 
     if (isDead)
     {
-      weapon.OnHit (AttackWeapon.HitType.Armor);
+      weapon.OnHit (AttackWeapon.HitType.Unprotected);
 
       SetFacingDirection (hitFromLeft);
       m_characterAnims.Death ();
     }
     else if (damageOutput >= m_damageAnimLimit)
     {
-      weapon.OnHit (AttackWeapon.HitType.Armor);
+      weapon.OnHit (AttackWeapon.HitType.Unprotected);
       
-      SetFacingDirection (hitFromLeft);
-
       if (highHit)
         m_characterAnims.DamageHigh ();
       else
@@ -113,8 +111,9 @@ public class AttackableCharacter : Character
     }
     else // Not much damage, typically shield protection
     {
-      weapon.OnHit (AttackWeapon.HitType.Shield);
-      
+      weapon.OnHit (AttackWeapon.HitType.Protected);
+
+      logger.Debug ("Abort swing");
       weapon.m_charAnims.AbortSwing ();
     }
   }

@@ -21,7 +21,7 @@ public class EnemyKnightAI : AttackableCharacter
   
   private bool    m_playerIsLeft            = false;
   private float   m_playerDistance          = 0f;
-  private float   m_previousPlayerDistance  = 0f;
+  private float   m_previousPlayerX         = 0f;
   private bool    m_facingPlayer            = false;
   private bool    m_playerFacingUs          = false;
   private bool    m_playerIsWithinRange     = false;
@@ -110,7 +110,7 @@ public class EnemyKnightAI : AttackableCharacter
   {
     Protect (ProtectionType.None);
 
-    if (Random.value < 0.0f)
+    if (Random.value < 0.3f)
       SwingLow ();
     else
       SwingHigh ();
@@ -185,7 +185,7 @@ public class EnemyKnightAI : AttackableCharacter
 	{
     base.Start();
 
-    // logger.LogEnabled = false;
+    logger.LogEnabled = false;
 
     m_characterAnims.m_onStateChangeDelegate += OnStateChange;
 
@@ -210,16 +210,18 @@ public class EnemyKnightAI : AttackableCharacter
     m_facingPlayer    = (m_facingLeft && m_playerIsLeft) || (!m_facingLeft && !m_playerIsLeft);
     m_playerFacingUs  = (m_player.m_facingLeft && !m_playerIsLeft) || (!m_player.m_facingLeft && m_playerIsLeft);
 
-    float speed = (m_playerDistance - m_previousPlayerDistance) / Time.deltaTime;
-    float predictedHitDistance = m_playerDistance + speed * m_fightTimeResolution + 
-                                 speed / 2f * 0.5f; // Assume 0.5s from start to hit of swing and that the speed during swing will be 1/2 of the current speed
+    // Assume player moves with the same speed and that it will do so to the next fight time
+    // and that time from start swing to hit is 0.5s    
+    float playerSpeed         = (m_player.transform.position.x - m_previousPlayerX) / Time.deltaTime;
+    float predictedPlayerPos  = m_player.transform.position.x + playerSpeed * (m_fightTimeResolution + 0.5f); 
+    float predictedHitDistance = Mathf.Abs(transform.position.x - predictedPlayerPos);
 
-    //logger.Debug ("speed: " +speed + ", " + "predictedHitDistance: " + predictedHitDistance);
+    //logger.Debug ("playerSpeed: " + playerSpeed + ", " + "playerDistance: " + m_playerDistance  + ", " + "x: " + transform.position.x + ", " + "px: " + m_player.transform.position.x + ", " + "predictedHitDistance: " + predictedHitDistance);
 
     m_playerIsWithinRange = m_facingPlayer && (predictedHitDistance < m_range) && !m_player.isDead;
     m_playerIsWithinSight = m_facingPlayer && (m_playerDistance < m_sightRange) && !m_player.isDead;
 
-    m_previousPlayerDistance = m_playerDistance;
+    m_previousPlayerX     = m_player.transform.position.x;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
