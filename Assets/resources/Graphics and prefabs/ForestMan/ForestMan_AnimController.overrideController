@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ForestMan_AnimController
+  m_Controller: {fileID: 9100000, guid: 0cb8f060d64663c40b74410ea571d338, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 7f96f3692caadc548b24608e5d67b88f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 59d2eaf49e1e03045bdd627a055d24a6, type: 2}
+    m_OverrideClip: {fileID: 7400012, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 175fc1aa5a158bd4481491821f06a0b9, type: 2}
+    m_OverrideClip: {fileID: 7400010, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 789d04233ef856a41954c6cedb09a3df, type: 2}
+    m_OverrideClip: {fileID: 7400014, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1ce92938bf11e484c8e0a14697329700, type: 2}
+    m_OverrideClip: {fileID: 7400016, guid: 58379187e9736cc419cb755ebdedc5d5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 90f2af078a83c9947b9eae955c0d309f, type: 2}
+    m_OverrideClip: {fileID: 7400008, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a52e29ae7542c9043a1ea6ea7eb080d5, type: 2}
+    m_OverrideClip: {fileID: 7400006, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 343dd0cc0357aca44aacd552f2af0aa3, type: 2}
+    m_OverrideClip: {fileID: 7400002, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f489028133ece254c92c392e3eac1b7f, type: 2}
+    m_OverrideClip: {fileID: 7400004, guid: b0715c9d9d006eb4990cf51f0cde8055, type: 2}

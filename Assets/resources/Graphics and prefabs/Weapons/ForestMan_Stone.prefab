@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
   m_Layer: 9
-  m_Name: Grey sword
+  m_Name: ForestMan_Stone
   m_TagString: AttackWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.27915692, y: -9.48297691, z: 0}
+  m_LocalPosition: {x: -19.9503536, y: .455853939, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,8 +40,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: 7.90999985, y: .460000008}
-  m_Center: {x: -1.44000006, y: -.270000011}
+  m_Size: {x: 2.5999999, y: 1.95000005}
+  m_Center: {x: -.0700000003, y: -.0599999987}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -111,11 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa347f43e93fe1e4fbd92efeb05dbba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 10
-  m_force: 15000
-  m_hitArmorSound: {fileID: 8300000, guid: 7d4568285798d08459eb28b3cc80afe0, type: 3}
-  m_hitShieldSound: {fileID: 8300000, guid: 3e7ffbaf53223e544b1d9b0e0369475e, type: 3}
-  m_activateStates: 0200000003000000
+  m_damage: 50
+  m_force: 25000
+  m_hitArmorSound: {fileID: 8300000, guid: 6c7b313ac1f9fda45b16f65f4322cbfd, type: 3}
+  m_hitShieldSound: {fileID: 8300000, guid: 6c7b313ac1f9fda45b16f65f4322cbfd, type: 3}
+  m_activateStates: 02000000
   m_character: {fileID: 0}
   m_collider: {fileID: 0}
   m_charAnims: {fileID: 0}
@@ -139,7 +139,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f0e36e898611af429af4f0f8f283978, type: 3}
+  m_Sprite: {fileID: 21300002, guid: caa1ba2fb878a874780d06d489d13622, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

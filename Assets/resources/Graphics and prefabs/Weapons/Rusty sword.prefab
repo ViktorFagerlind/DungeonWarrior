@@ -112,9 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 10
-  m_force: 18000
+  m_force: 15000
   m_hitArmorSound: {fileID: 8300000, guid: db8954baff1f3b14eba4780a6faf8c69, type: 3}
   m_hitShieldSound: {fileID: 8300000, guid: 3e7ffbaf53223e544b1d9b0e0369475e, type: 3}
+  m_activateStates: 0200000003000000
   m_character: {fileID: 0}
   m_collider: {fileID: 0}
   m_charAnims: {fileID: 0}

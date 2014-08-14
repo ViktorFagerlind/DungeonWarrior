@@ -1,15 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class AttackableCharacter : Character
+public abstract class AttackableCharacter : Character
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
   [HideInInspector] public  float m_health;
-  [HideInInspector] public  float m_stamina;
-  
+
   public  float     m_maxHealth                = 100f;
-  public  float     m_maxStamina               = 100f;
 
   public  float     m_damageAnimLimit          = 6f;
   public  float     m_relativeMidpointY        = 1f;
@@ -21,6 +19,9 @@ public class AttackableCharacter : Character
 
   private Shield m_shield;    // current shield, null if none.
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public abstract void OnHitByOther (GameObject other);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
@@ -29,7 +30,6 @@ public class AttackableCharacter : Character
     base.Start();
 
     m_health  = m_maxHealth;
-    m_stamina = m_maxStamina;
 
     updateCurrentShield ();
   }
@@ -62,7 +62,7 @@ public class AttackableCharacter : Character
     // Facing towards hit?
     if (m_facingLeft == hitFromLeft)
     {
-      AnimationState animState = m_characterAnims.GetState ();
+      AnimationState animState = m_characterAnims.State;
       // Got hit on shield?
       if (highHit  && (animState == AnimationState.ProtectHigh) ||
           !highHit && (animState == AnimationState.ProtectLow))
@@ -92,6 +92,8 @@ public class AttackableCharacter : Character
       m_hitForceToApply = new Vector2 (forceOutput, 0f);
     else
       m_hitForceToApply = new Vector2 (-forceOutput, 0f);
+
+    m_stamina.ReduceByForce (forceOutput);
 
     if (isDead)
     {
@@ -128,9 +130,11 @@ public class AttackableCharacter : Character
     
     if (otherHitObject.tag != "AttackWeapon")
     {
-      // logger.Debug ("No weapon hit");
+      //logger.Error ("No weapon hit");
       return;
     }
+
+    OnHitByOther (otherHitObject.transform.root.gameObject);
 
     AttackWeapon attackWeapon = otherHitObject.GetComponent<AttackWeapon> ();
     attackWeapon.m_collider.enabled = false; // Disable collider to avoid awkward physics

@@ -95,9 +95,9 @@ BlendTree:
     m_IsAnim: 1
     m_Mirror: 0
   - m_Motion: {fileID: 7400000, guid: 789d04233ef856a41954c6cedb09a3df, type: 2}
-    m_Threshold: .200000003
+    m_Threshold: .5
     m_Position: {x: 0, y: 0}
-    m_TimeScale: .200000003
+    m_TimeScale: .5
     m_CycleOffset: 0
     m_IsAnim: 1
     m_Mirror: 0
@@ -463,13 +463,13 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110299258}
   m_DstState: {fileID: 110203017}
-  m_TransitionDuration: .0546458997
+  m_TransitionDuration: .220923781
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 5
     m_ConditionEvent: 
     m_EventTreshold: 0
-    m_ExitTime: .943460166
+    m_ExitTime: .7771824
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0

@@ -1,35 +1,25 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyKnightAI : FighterBaseAI
+public class ForestManAI : FighterBaseAI
 {	
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   protected override void ProtectAction ()
   {
-    if (m_player.m_characterAnims.State == AnimationState.AttackHigh)
-    {
-      Debug.Log ("protect high");
-      Protect (ProtectionType.High);
-    }
-    else if (m_player.m_characterAnims.State == AnimationState.AttackLow)
-    {
-      Debug.Log ("protect low");
+    if (m_player.m_characterAnims.State == AnimationState.AttackHigh ||
+        m_player.m_characterAnims.State == AnimationState.AttackLow)
       Protect (ProtectionType.Low);
-    }
     else
-    {
-      Debug.Log ("protect high");
       Protect (ProtectionType.None);
-    }
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   protected override void AttackAction ()
   {
-    if (Random.value < 0.3f)
+    if (Random.value < 0.5f)
       AttackLow ();
     else
       AttackHigh ();

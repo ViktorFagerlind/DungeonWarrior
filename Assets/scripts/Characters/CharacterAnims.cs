@@ -5,8 +5,8 @@ public enum AnimationState
 { 
   IdleToRun,
   Fall,
-  SwingHigh,
-  SwingLow,
+  AttackHigh,
+  AttackLow,
   ProtectHigh,
   ProtectLow,
   DamageHigh,
@@ -22,14 +22,17 @@ public class CharacterAnims : MonoBehaviour
   public delegate void OnStateChange (AnimationState oldState, AnimationState newState);
   
   // ---------------------------------------------------------------------------------------------------------------------------------
-  
+
   public OnStateChange m_onStateChangeDelegate;
+
+  public AnimationState State {get {return m_cachedState;}}
   
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
   
   private Animator 	m_animator;
 
-  AnimationState m_previousState = AnimationState.IdleToRun;
+  AnimationState m_previouslyCachedState  = AnimationState.IdleToRun;
+  AnimationState m_cachedState            = AnimationState.IdleToRun;
 
   // state hashes
   private int m_idleToRunStateHash    = Animator.StringToHash("Base Layer.Stand to Run Blend Tree");
@@ -50,12 +53,17 @@ public class CharacterAnims : MonoBehaviour
   private int m_protectLowHash        = Animator.StringToHash ("ProtectLow");
 
   // trigger hashes
-  private int m_swingHighHash         = Animator.StringToHash ("SwingHigh");
-  private int m_swingLowHash          = Animator.StringToHash ("SwingLow");
+  private int m_attackHighHash         = Animator.StringToHash ("SwingHigh");
+  private int m_attackLowHash          = Animator.StringToHash ("SwingLow");
   private int m_damageHighHash        = Animator.StringToHash ("DamageHigh");
   private int m_damageLowHash         = Animator.StringToHash ("DamageLow");
   private int m_deathHash             = Animator.StringToHash ("Death");
   private int m_abortSwingHash        = Animator.StringToHash ("AbortSwing");
+
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+
+  public float AnimationSpeed {get {return m_animator.speed;} set {m_animator.speed = value;}}
 
   // ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -84,9 +92,9 @@ public class CharacterAnims : MonoBehaviour
     else if (stateNameHash == m_fallStateHash)
       state = AnimationState.Fall;
     else if (stateNameHash == m_swingHighStateHash)
-      state = AnimationState.SwingHigh;
+      state = AnimationState.AttackHigh;
     else if (stateNameHash == m_swingLowStateHash)
-      state = AnimationState.SwingLow;
+      state = AnimationState.AttackLow;
     else if (stateNameHash == m_protectHighStateHash)
       state = AnimationState.ProtectHigh;
     else if (stateNameHash == m_protectLowStateHash)
@@ -110,7 +118,7 @@ public class CharacterAnims : MonoBehaviour
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  public AnimationState GetState ()
+  private void UpdateState ()
   {
     AnimationState state = DecodeState (m_animator.GetCurrentAnimatorStateInfo (0));
 
@@ -121,8 +129,8 @@ public class CharacterAnims : MonoBehaviour
 
       if ((state != AnimationState.DamageLow   &&
            state != AnimationState.DamageHigh  &&
-           state != AnimationState.SwingHigh   &&
-           state != AnimationState.SwingLow)   &&
+           state != AnimationState.AttackHigh   &&
+           state != AnimationState.AttackLow)   &&
           (nextState == AnimationState.IdleToRun  ||
            nextState == AnimationState.Fall       ||
            nextState == AnimationState.DamageHigh ||
@@ -132,21 +140,35 @@ public class CharacterAnims : MonoBehaviour
         state = nextState;
     }
 
-    if (state != m_previousState)
+    m_cachedState = state;
+    
+    if (m_cachedState != m_previouslyCachedState)
     {
-      logger.Debug (gameObject.name + " changed state to " + state);
-      m_onStateChangeDelegate (m_previousState, state);
-      m_previousState = state;
+      logger.Debug (gameObject.name + " changed state to " + m_cachedState);
+      m_onStateChangeDelegate (m_previouslyCachedState, m_cachedState);
+      m_previouslyCachedState = m_cachedState;
     }
+  }
 
-    return state;
+  // ---------------------------------------------------------------------------------------------------------------------------------
+
+  void Update ()
+  {
+    UpdateState ();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
+  void FixedUpdate ()
+  {
+    UpdateState ();
+  }
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public void Death       ()    {m_animator.SetTrigger (m_deathHash);}
-  public void SwingHigh   ()    {m_animator.SetTrigger (m_swingHighHash);}
-  public void SwingLow    ()    {m_animator.SetTrigger (m_swingLowHash);}
+  public void AttackHigh   ()   {m_animator.SetTrigger (m_attackHighHash);}
+  public void AttackLow    ()   {m_animator.SetTrigger (m_attackLowHash);}
   public void DamageHigh  ()    {m_animator.SetTrigger (m_damageHighHash);}
   public void DamageLow   ()    {m_animator.SetTrigger (m_damageLowHash);}
   public void AbortSwing  ()    {m_animator.SetTrigger (m_abortSwingHash);}
@@ -159,8 +181,5 @@ public class CharacterAnims : MonoBehaviour
   public void SetSpeed       (float speed)        {m_animator.SetFloat  (m_speedHash, Mathf.Abs (speed));}
 
   // ---------------------------------------------------------------------------------------------------------------------------------
-  
-  void Update() 
-	{
-  }
+
 }

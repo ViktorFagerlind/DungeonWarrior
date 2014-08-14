@@ -11,10 +11,9 @@ GameObject:
   - 212: {fileID: 21200000}
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
-  - 82: {fileID: 8200000}
-  m_Layer: 9
-  m_Name: Grey sword
-  m_TagString: AttackWeapon
+  m_Layer: 10
+  m_Name: ForestMan_ArmShield
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.27915692, y: -9.48297691, z: 0}
+  m_LocalPosition: {x: -16.0209389, y: .665682316, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,66 +39,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: 7.90999985, y: .460000008}
-  m_Center: {x: -1.44000006, y: -.270000011}
---- !u!82 &8200000
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
+  m_Size: {x: 4.82999992, y: .920000017}
+  m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,17 +49,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa347f43e93fe1e4fbd92efeb05dbba1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a7b9549919851548ba8cb42ed2154da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 10
-  m_force: 15000
-  m_hitArmorSound: {fileID: 8300000, guid: 7d4568285798d08459eb28b3cc80afe0, type: 3}
-  m_hitShieldSound: {fileID: 8300000, guid: 3e7ffbaf53223e544b1d9b0e0369475e, type: 3}
-  m_activateStates: 0200000003000000
-  m_character: {fileID: 0}
-  m_collider: {fileID: 0}
-  m_charAnims: {fileID: 0}
+  m_damageAbsorb: 20
+  m_forceAbsorb: 30000
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -139,7 +74,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f0e36e898611af429af4f0f8f283978, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 03ca2da3dbea89e4d9fcb8553dcb7fcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

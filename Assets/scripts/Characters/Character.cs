@@ -18,9 +18,11 @@ public class Character : MonoBehaviour
   // ---------------------------------------------------------------------------------------------------------------------------------
 
   // edit these to tune character movement	
-	public float                            m_walkVelocity      = 3f;
-  public float                            m_jumpSpeed         = 4f;
-  public float                            m_maxVelocityChange = 10f;
+	public float                            m_walkVelocity        = 3f;
+  public float                            m_jumpSpeed           = 4f;
+  public float                            m_maxVelocityChange   = 10f;
+
+  public StaminaManager                   m_stamina;
 
   // Sounds
   public AudioClip                        m_attackSound;
@@ -45,15 +47,15 @@ public class Character : MonoBehaviour
 
   private readonly int                    m_groundMask = 1 << 8; // Ground layer mask
 
-  private bool                            m_grounded        = false;
+  private bool                            m_grounded            = false;
 
   private float                           m_inputHorizontal     = 0.0f;
   private bool                            m_inputJump           = false;
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  public bool  grounded           {get {return m_grounded;}}
-  public float m_horizontalSpeed  {get {return rigidbody2D.velocity.x;}}
+  public bool  grounded                   {get {return m_grounded;}}
+  public float m_horizontalSpeed          {get {return rigidbody2D.velocity.x;}}
     
   // ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -70,10 +72,20 @@ public class Character : MonoBehaviour
   
   void OnStateChange (AnimationState oldState, AnimationState newState)
   {
+    switch (oldState)
+    {
+      case AnimationState.AttackHigh:
+      case AnimationState.AttackLow:
+        m_characterAnims.AnimationSpeed = 1f; // Restore animation speed from potentially low stamina
+        m_stamina.ReduceAttack ();
+        break;
+    }
+
     switch (newState)
     {
-      case AnimationState.SwingHigh:
-      case AnimationState.SwingLow:
+      case AnimationState.AttackHigh:
+      case AnimationState.AttackLow:
+        m_characterAnims.AnimationSpeed = Mathf.Clamp (m_stamina.LimitPercentage, 0.5f, 1f); // Slow down attack according to stamina
         PlaySound (m_attackSound);
         break;
 
@@ -85,7 +97,6 @@ public class Character : MonoBehaviour
       case AnimationState.DamageHigh:
       case AnimationState.DamageLow:
         PlaySound (m_damagedSound);
-
         break;
                 
       case AnimationState.LieDead:
@@ -134,19 +145,27 @@ public class Character : MonoBehaviour
     
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  protected bool IsActionAllowed ()
+  protected bool IsAttack ()
   {
-    return m_characterAnims.GetState () == AnimationState.IdleToRun;
+    return m_characterAnims.State == AnimationState.AttackHigh ||
+           m_characterAnims.State == AnimationState.AttackLow;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
+  protected bool IsActionAllowed ()
+  {
+    return m_characterAnims.State == AnimationState.IdleToRun;
+  }
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   private bool IsUserFlipAllowed ()
   {
-    return  m_characterAnims.GetState () == AnimationState.IdleToRun    || 
-            m_characterAnims.GetState () == AnimationState.Fall         || 
-            m_characterAnims.GetState () == AnimationState.ProtectHigh  || 
-            m_characterAnims.GetState () == AnimationState.ProtectLow;
+    return  m_characterAnims.State == AnimationState.IdleToRun    || 
+            m_characterAnims.State == AnimationState.Fall         || 
+            m_characterAnims.State == AnimationState.ProtectHigh  || 
+            m_characterAnims.State == AnimationState.ProtectLow;
     }
     
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -167,14 +186,6 @@ public class Character : MonoBehaviour
   
   public void Protect (ProtectionType type)
   {
-/*
-    AnimationState state = m_characterAnims.GetState ();
-    if (((type == ProtectionType.High)  && (state == AnimationState.ProtectHigh)) ||
-        ((type == ProtectionType.Low)   && (state == AnimationState.ProtectLow))  ||
-        ((type == ProtectionType.None)  && (state != AnimationState.ProtectHigh) && (state != AnimationState.ProtectLow)))
-        return;
-*/
-
     switch (type)
     {
       case ProtectionType.High:
@@ -196,22 +207,22 @@ public class Character : MonoBehaviour
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  public void SwingHigh ()
+  public void AttackHigh ()
   {
     if (!IsActionAllowed ())
       return;
 
-    m_characterAnims.SwingHigh ();
+    m_characterAnims.AttackHigh ();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   
-  public void SwingLow ()
+  public void AttackLow ()
   {
     if (!IsActionAllowed ())
       return;
     
-    m_characterAnims.SwingLow ();
+    m_characterAnims.AttackLow ();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -222,7 +233,7 @@ public class Character : MonoBehaviour
       return;
 
     m_facingLeft = faceLeft;
-    logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
+    //logger.Debug (gameObject.name + (faceLeft ? ": left" : ":right"));
 
     transform.localScale = new Vector3(faceLeft ? m_initialScale.x : -m_initialScale.x, 
                                        m_initialScale.y, 
@@ -260,15 +271,14 @@ public class Character : MonoBehaviour
 
     if (!IsActionAllowed ())
     {
-      //logger.Debug ("Not Allowed");
+      m_inputJump = false;
       return;
     }
 
     if (m_inputJump)
     {
-      m_inputJump = false;
-      if (IsActionAllowed ())
-        rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, m_jumpSpeed);
+      logger.Debug (gameObject.name + ": Jump");
+      rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, m_jumpSpeed);
     }
 
     // Calculate force along ground plane
@@ -291,6 +301,9 @@ public class Character : MonoBehaviour
   
   public virtual void Update ()
   {
+    // Re-generate stamina
+    m_stamina.Regenerate (Time.deltaTime);
+
     // Update animation
     m_characterAnims.SetGrounded (m_grounded);
     m_characterAnims.SetSpeed (m_horizontalSpeed);

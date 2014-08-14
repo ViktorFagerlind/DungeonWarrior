@@ -8,30 +8,55 @@ public class Player : AttackableCharacter
   private AudioSource m_audioSteps;
   public  AudioClip   m_stepSound;
 
-	// Use this for initialization
+  // Singleton
+  private static Player m_instance;
+  public  static Player instance {get { return m_instance;}}
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public override void OnHitByOther (GameObject other) 
+  {
+    EnemyStatusDisplayer.instance.SetEnemyToDisplay (other);
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
+  public override void Awake () 
+  {
+    m_instance = this;
+
+    base.Awake ();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
 	public override void Start () 
 	{
 		base.Start();
+
+    logger.LogEnabled = false;
 
     m_audioSteps = GetComponents<AudioSource> ()[1];
     m_audioSteps.clip = m_stepSound;
     m_audioSteps.loop = true;
 	}
 	
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public override void Update ()
   {
     base.Update ();
 
     if (!m_audioSteps.isPlaying &&
-        Mathf.Abs (m_horizontalSpeed) > 0.3f && m_characterAnims.GetState () == AnimationState.IdleToRun)
+        Mathf.Abs (m_horizontalSpeed) > 0.3f && m_characterAnims.State == AnimationState.IdleToRun)
       m_audioSteps.Play ();
     else if (m_audioSteps.isPlaying &&
-      Mathf.Abs (m_horizontalSpeed) < 0.3f || m_characterAnims.GetState () != AnimationState.IdleToRun)
+             Mathf.Abs (m_horizontalSpeed) < 0.3f || m_characterAnims.State != AnimationState.IdleToRun)
       m_audioSteps.Pause ();
 
     if (Input.GetButtonDown ("Jump"))
     {
-      // logger.Debug ("Jump button pressed");
+      logger.Debug ("Jump button pressed");
       Jump ();
     }
 
@@ -39,9 +64,9 @@ public class Player : AttackableCharacter
     {
       // logger.Debug ("Fire button pressed");
       if (Input.GetAxis ("Vertical") < -0.2f)
-        SwingLow ();
+        AttackLow ();
       else
-        SwingHigh ();
+        AttackHigh ();
     }
 
     if (Input.GetAxis ("Protect") > 0.2f)
@@ -64,10 +89,10 @@ public class Player : AttackableCharacter
     Move (Input.GetAxis ("Horizontal"));
   }
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   public override void FixedUpdate()
 	{
     base.FixedUpdate ();
 	}
-
-
 }
