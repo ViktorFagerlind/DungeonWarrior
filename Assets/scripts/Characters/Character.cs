@@ -70,6 +70,34 @@ public class Character : MonoBehaviour
     
   // ---------------------------------------------------------------------------------------------------------------------------------
   
+  void DeathActions ()
+  {
+    // Drop items
+    Item[] items = GetComponentsInChildren<Item> ();
+    foreach (Item i in items)
+      i.Drop ();
+
+    // Destroy scripts
+    MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour> ();
+    foreach (MonoBehaviour s in scripts)
+      Destroy (s);
+
+    Destroy (GetComponent<Rigidbody2D> ());
+    
+    // Destroy Audio
+    AudioSource[] audios = GetComponentsInChildren<AudioSource> ();
+    foreach (AudioSource a in audios)
+      Destroy (a);
+    
+    // Destroy colliders
+    Collider2D[] colliders = GetComponentsInChildren<Collider2D> ();
+    foreach (Collider2D c in colliders)
+      Destroy (c);
+
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  
   void OnStateChange (AnimationState oldState, AnimationState newState)
   {
     switch (oldState)
@@ -101,10 +129,7 @@ public class Character : MonoBehaviour
                 
       case AnimationState.LieDead:
         logger.Debug ("============ " + gameObject.name + " lies dead ============");
-        Destroy (GetComponent<Rigidbody2D> ());
-        GetComponent<BoxCollider2D> ().enabled    = false;
-        GetComponent<CircleCollider2D> ().enabled = false;
-        enabled = false; // Disable script
+        DeathActions ();
         break;
     }
   }
@@ -131,7 +156,7 @@ public class Character : MonoBehaviour
   {
     m_audioFx = GetComponents<AudioSource> ()[0];
 
-    //logger.LogEnabled = false;
+    logger.LogEnabled = false;
 
     m_characterAnims.m_onStateChangeDelegate += OnStateChange;
   }

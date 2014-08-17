@@ -32,7 +32,7 @@ public class StatusDisplay : MonoBehaviour
 
 	void Start () 
   {
-    m_barSkin = (GUISkin)Resources.Load ("Graphics and prefabs/Characters/StatusBar/StatusBarSkin");
+    m_barSkin = (GUISkin)Resources.Load ("Graphics and prefabs/GUI/StatusBar/StatusBarSkin");
 
     m_attackableCharacter = GetComponent<AttackableCharacter> ();
 

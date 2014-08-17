@@ -1376,11 +1376,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42daffd07bb3d6f4da0a4050d1ae8edc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3948ed7f985328c4fbdbc32e8ab4eb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: Grey sword
-  WeaponAttachName: Right-hand-weapon
+  m_weaponName: Grey sword
+  m_parentName: Right-hand-weapon
 --- !u!114 &11400034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1389,11 +1389,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42daffd07bb3d6f4da0a4050d1ae8edc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3948ed7f985328c4fbdbc32e8ab4eb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: Grey shield
-  WeaponAttachName: Left-hand-weapon
+  m_weaponName: Grey shield
+  m_parentName: Left-hand-weapon
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1

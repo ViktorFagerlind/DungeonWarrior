@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa347f43e93fe1e4fbd92efeb05dbba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_droppable: 0
   m_damage: 10
   m_force: 20000
   m_hitArmorSound: {fileID: 8300000, guid: 58f47d76d18499e47b1e62c7098608eb, type: 3}

@@ -77,7 +77,7 @@ public class CharacterAnims : MonoBehaviour
   
   void Start ()
   {
-    //logger.LogEnabled = false;
+    logger.LogEnabled = false;
   }
   
   // ---------------------------------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent (typeof (BoxCollider2D))]
-public class Shield : MonoBehaviour
+public class Shield : Item
 {
   public float m_damageAbsorb = 5f;
   public float m_forceAbsorb  = 1000f;

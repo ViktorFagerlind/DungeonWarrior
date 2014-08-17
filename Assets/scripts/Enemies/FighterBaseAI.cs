@@ -190,6 +190,8 @@ public abstract class FighterBaseAI : AttackableCharacter
   void OnDestroy ()
   {
     m_characterAnims.m_onStateChangeDelegate -= OnStateChange;
+
+    StopCoroutine (UpdateStateMachine ());
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------

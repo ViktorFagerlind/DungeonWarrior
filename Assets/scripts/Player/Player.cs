@@ -5,8 +5,14 @@ public class Player : AttackableCharacter
 {	
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+  // public Equipment    m_equipment;
+
   private AudioSource m_audioSteps;
   public  AudioClip   m_stepSound;
+
+  public  bool InputEnabled {get; set;}
+
+  [HideInInspector] public  EquipmentManager m_equipmentManager;
 
   // Singleton
   private static Player m_instance;
@@ -26,6 +32,10 @@ public class Player : AttackableCharacter
     m_instance = this;
 
     base.Awake ();
+
+    m_equipmentManager = GetComponent<EquipmentManager> ();
+
+    InputEnabled = true;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -51,8 +61,14 @@ public class Player : AttackableCharacter
         Mathf.Abs (m_horizontalSpeed) > 0.3f && m_characterAnims.State == AnimationState.IdleToRun)
       m_audioSteps.Play ();
     else if (m_audioSteps.isPlaying &&
-             Mathf.Abs (m_horizontalSpeed) < 0.3f || m_characterAnims.State != AnimationState.IdleToRun)
+        Mathf.Abs (m_horizontalSpeed) < 0.3f || m_characterAnims.State != AnimationState.IdleToRun)
       m_audioSteps.Pause ();
+
+    if (!InputEnabled)
+    {
+      Move (0f);
+      return;
+    }
 
     if (Input.GetButtonDown ("Jump"))
     {

@@ -313,10 +313,10 @@ GameObject:
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400020}
   - 114: {fileID: 11400018}
+  - 82: {fileID: 8200000}
+  - 114: {fileID: 11400022}
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400014}
-  - 114: {fileID: 11400022}
-  - 82: {fileID: 8200000}
   m_Layer: 11
   m_Name: ForestMan
   m_TagString: Untagged
@@ -1167,11 +1167,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42daffd07bb3d6f4da0a4050d1ae8edc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3948ed7f985328c4fbdbc32e8ab4eb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: ForestMan_ArmShield
-  WeaponAttachName: Lower-arm-away
+  m_weaponName: ForestMan_ArmShield
+  m_parentName: Lower-arm-away
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1180,11 +1180,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42daffd07bb3d6f4da0a4050d1ae8edc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3948ed7f985328c4fbdbc32e8ab4eb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: ForestMan_Stone
-  WeaponAttachName: Stone
+  m_weaponName: ForestMan_Foot
+  m_parentName: Foot
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1219,7 +1219,7 @@ MonoBehaviour:
   m_facingLeft: 1
   m_characterAnims: {fileID: 0}
   m_health: 0
-  m_maxHealth: 50
+  m_maxHealth: 5
   m_damageAnimLimit: 20
   m_relativeMidpointY: 4
   m_damageCooldownInSeconds: 1
@@ -1233,11 +1233,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42daffd07bb3d6f4da0a4050d1ae8edc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3948ed7f985328c4fbdbc32e8ab4eb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: ForestMan_Foot
-  WeaponAttachName: Foot-away
+  m_weaponName: ForestMan_Stone
+  m_parentName: Stone
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1

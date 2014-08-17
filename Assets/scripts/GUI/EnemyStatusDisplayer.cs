@@ -16,7 +16,7 @@ public class EnemyStatusDisplayer : MonoBehaviour
 
   public void OnEnemyStateChange (AnimationState oldState, AnimationState newState)
   {
-    if (newState == AnimationState.Death || newState == AnimationState.LieDead)
+    if (newState == AnimationState.Death)
       DeRegisterEnemy ();
   }
 
@@ -35,6 +35,8 @@ public class EnemyStatusDisplayer : MonoBehaviour
     m_currentEnemyWithStatus.GetComponent<Character> ().m_characterAnims.m_onStateChangeDelegate -= OnEnemyStateChange;
 
     Destroy (m_currentEnemyWithStatus.GetComponent<StatusDisplay> ());
+
+    m_currentEnemyWithStatus = null;
   }
   
   public void SetEnemyToDisplay (GameObject enemyGameObj)

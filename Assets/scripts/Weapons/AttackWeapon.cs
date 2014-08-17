@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof (BoxCollider2D), typeof (AudioSource))]
-public class AttackWeapon : MonoBehaviour
+public class AttackWeapon : Item
 {
   public enum HitType
   { 
