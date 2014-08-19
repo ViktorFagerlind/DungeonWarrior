@@ -26,6 +26,9 @@ public class PickableItem : MonoBehaviour
   {
     logger.Debug (gameObject.name + ": " +other.gameObject.name + " entered (OnTriggerEnter2D)");
 
+    if (other.gameObject != Player.instance.gameObject)
+      return;
+
     GuiManager.instance.CreatePopupMenuHorizontal ("Pick?", "Pick up " + name +  "?", new string[] {"Yes", "No"}, 0, OnMenuDone);
   }
 
