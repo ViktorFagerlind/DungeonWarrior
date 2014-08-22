@@ -2001,7 +2001,7 @@ Transform:
   m_PrefabInternal: {fileID: 1193818255}
   m_GameObject: {fileID: 139025300}
   m_LocalRotation: {x: 0, y: 0, z: .011081798, w: .999938607}
-  m_LocalPosition: {x: -.204194069, y: -.505786896, z: 0}
+  m_LocalPosition: {x: -.0944547653, y: -.0119762421, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1768861525}
@@ -10265,6 +10265,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: e0c176438540ebb47a83142f1e87e7d5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -.0944547653
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: e0c176438540ebb47a83142f1e87e7d5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.0119762421
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0c176438540ebb47a83142f1e87e7d5, type: 2}
   m_RootGameObject: {fileID: 1768861524}
@@ -13670,7 +13678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_droppable: 1
-  m_damage: 10
+  m_damage: 1000
   m_force: 15000
   m_hitArmorSound: {fileID: 8300000, guid: db8954baff1f3b14eba4780a6faf8c69, type: 3}
   m_hitShieldSound: {fileID: 8300000, guid: 3e7ffbaf53223e544b1d9b0e0369475e, type: 3}

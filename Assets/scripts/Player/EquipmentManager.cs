@@ -2,6 +2,7 @@ using System.IO;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class EquipmentManager : MonoBehaviour
@@ -11,15 +12,26 @@ public class EquipmentManager : MonoBehaviour
   [System.Serializable]
   public class EquipmentCollection
   {
-    private string         m_selectedItem = "";
+    private string        m_selectedItem = "";
 
     public  List<string>  m_items;
     public  string        m_parentName;
 
     public  bool      IsEmpty            {get {return m_items.Count == 0;}}
-    public  string[]  GetItemArray ()         {return m_items.ToArray ();}
     public  int       GetSelectedItemIndex () {return m_items.IndexOf (m_selectedItem);}
     public  string    GetSelectedItem ()      {return m_selectedItem;}
+
+    public static GUIContent NameToGuiItem (string itemName)
+    {
+      Sprite sprite = (Sprite)Resources.Load ("Graphics and prefabs/Weapons/" + itemName, typeof (Sprite));
+
+      return new GUIContent (itemName, sprite.texture);
+    }
+
+    public GUIContent[] GetGuiItemArray ()      
+    {
+      return Array.ConvertAll (m_items.ToArray (), new Converter<string, GUIContent>(NameToGuiItem));
+    }
 
     public void RemoveItem (string item)
     {
@@ -31,6 +43,9 @@ public class EquipmentManager : MonoBehaviour
 
     public void AddItem (string item)
     {
+      if (m_items.Contains (item))
+        return;
+
       m_items.Add (item);
     }
     
@@ -125,7 +140,7 @@ public class EquipmentManager : MonoBehaviour
     {
       logger.Debug ("Create gui...");
       GuiManager.instance.CreatePopupMenuVertical ("Weapon selection", "Select weapon", 
-                                                   m_attackWeapons.GetItemArray (), m_attackWeapons.GetSelectedItemIndex (), 
+                                                   m_attackWeapons.GetGuiItemArray (), m_attackWeapons.GetSelectedItemIndex (), 
                                                    OnMenuDone);
     }
   }

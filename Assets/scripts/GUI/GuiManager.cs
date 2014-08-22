@@ -48,7 +48,7 @@ public class GuiManager : MonoBehaviour
 
   // -------------------------------------------------------------------------------------------------------------------
   
-  public void CreatePopupMenuHorizontal (string title, string description, string[] itemNames, int selectedItem, OnMenuDone onItemSelectedDelegate)
+  public void CreatePopupMenuHorizontal (string title, string description, GUIContent[] listItems, int selectedItem, OnMenuDone onItemSelectedDelegate)
   {
     // Do not create multiple menues
     if (m_menu != null)
@@ -56,14 +56,14 @@ public class GuiManager : MonoBehaviour
 
     m_onMenuDoneDelegate = onItemSelectedDelegate;
 
-    m_menu = new StickMenu (title, description, itemNames, selectedItem, new Vector2 (100, 40), itemNames.Length);
+    m_menu = new StickMenu (title, description, listItems, selectedItem, new Vector2 (100, 40), listItems.Length);
 
     Player.instance.InputEnabled = false;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
   
-  public void CreatePopupMenuVertical (string title, string description, string[] itemNames, int selectedItem, OnMenuDone onItemSelectedDelegate)
+  public void CreatePopupMenuVertical (string title, string description, GUIContent[] listItems, int selectedItem, OnMenuDone onItemSelectedDelegate)
   {
     // Do not create multiple menues
     if (m_menu != null)
@@ -71,7 +71,7 @@ public class GuiManager : MonoBehaviour
     
     m_onMenuDoneDelegate = onItemSelectedDelegate;
     
-    m_menu = new StickMenu (title, description, itemNames, selectedItem, new Vector2 (200, 40), 1);
+    m_menu = new StickMenu (title, description, listItems, selectedItem, new Vector2 (200, 40), 1);
     
     Player.instance.InputEnabled = false;
   }

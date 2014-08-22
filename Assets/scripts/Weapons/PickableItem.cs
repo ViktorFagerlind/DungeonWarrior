@@ -29,7 +29,9 @@ public class PickableItem : MonoBehaviour
     if (other.gameObject != Player.instance.gameObject)
       return;
 
-    GuiManager.instance.CreatePopupMenuHorizontal ("Pick?", "Pick up " + name +  "?", new string[] {"Yes", "No"}, 0, OnMenuDone);
+    GuiManager.instance.CreatePopupMenuHorizontal ("Pick?", "Pick up " + name +  "?", 
+                                                   new GUIContent[] {new GUIContent ("Yes"), new GUIContent ("No")}, 
+                                                   0, OnMenuDone);
   }
 
   void OnTriggerExit2D (Collider2D other) 

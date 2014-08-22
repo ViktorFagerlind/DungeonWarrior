@@ -17,36 +17,36 @@ public class StickMenu
   }
 
   public int    SelectedItem     {get {return m_selectedItem;}}
-  public string SelectedItemName {get {return m_itemNames[m_selectedItem];}}
+  public string SelectedItemName {get {return m_listItems[m_selectedItem].text;}}
 
   //Change these to match what you've defined in InputManager.
-  private const   string    SELECT_AXIS    = "Vertical";
-  private const   string    SELECT_BUTTON  = "Select";
-  private const   string    BACK_BUTTON    = "Jump";
+  private const   string        SELECT_AXIS    = "Vertical";
+  private const   string        SELECT_BUTTON  = "Select";
+  private const   string        BACK_BUTTON    = "Jump";
 
   //Input freeze intervals to help the menu control work intuitively.
-  private const   float     AXIS_FREEZE_DELAY   = .2f;
-  private         float     m_noInputUntil      = -1f;
+  private const   float         AXIS_FREEZE_DELAY   = .2f;
+  private         float         m_noInputUntil      = -1f;
 
-  private         string    m_title;
-  private         string    m_description;
+  private         string        m_title;
+  private         string        m_description;
 
-  private         int       m_selectedItem;
-  private         string[]  m_itemNames;
-  private         Vector2   m_buttonSize;
-  private         int       m_xCount;
-  private         int       m_yCount;
+  private         int           m_selectedItem;
+  private         GUIContent[]  m_listItems;
+  private         Vector2       m_buttonSize;
+  private         int           m_xCount;
+  private         int           m_yCount;
 
   //Pass in names to be displayed in menu options.
-  public StickMenu (string title, string description, string[] itemNames, int selectedItem, Vector2 buttonSize, int xCount)
+  public StickMenu (string title, string description, GUIContent[] listItems, int selectedItem, Vector2 buttonSize, int xCount)
   {
-    m_itemNames   = itemNames;
+    m_listItems   = listItems;
     m_title       = title;
     m_description = description;
 
     m_buttonSize  = buttonSize;
     m_xCount      = xCount;
-    m_yCount      = (itemNames.Length + (xCount-1)) / xCount;
+    m_yCount      = (listItems.Length + (xCount-1)) / xCount;
 
     m_selectedItem = selectedItem;
   }
@@ -72,7 +72,7 @@ public class StickMenu
                                  labelHeight, 
                                  width - GUI.skin.box.border.left - GUI.skin.box.border.right, 
                                  height - labelHeight - GUI.skin.box.border.bottom),
-                       m_selectedItem, m_itemNames, m_xCount);
+                       m_selectedItem, m_listItems, m_xCount);
 
     GUI.EndGroup ();
   }
@@ -95,7 +95,7 @@ public class StickMenu
     float axisValue = Input.GetAxis(SELECT_AXIS); 
     if (axisValue < -.1f)
     {
-      if (m_selectedItem == m_itemNames.Length - 1)
+      if (m_selectedItem == m_listItems.Length - 1)
         m_selectedItem = 0;
       else
         m_selectedItem++;
@@ -105,7 +105,7 @@ public class StickMenu
     else if (axisValue > .1f)
     {
       if (m_selectedItem == 0)
-        m_selectedItem = m_itemNames.Length-1;
+        m_selectedItem = m_listItems.Length-1;
       else
         m_selectedItem--;
 
@@ -119,7 +119,7 @@ public class StickMenu
   //case-insensitive comparisons.
   public string Selection()
   {
-    return m_itemNames [m_selectedItem].ToLower();
+    return m_listItems [m_selectedItem].text.ToLower();
   }
 
 }
