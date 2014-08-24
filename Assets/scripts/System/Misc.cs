@@ -4,7 +4,7 @@ using System.Collections;
 public class Misc : MonoBehaviour
 {
 
-  static public Transform getChildByName (Transform from, string name) 
+  static public Transform GetChildByName (Transform from, string name) 
   {
     Transform[] ts = from.transform.GetComponentsInChildren <Transform> ();
 
@@ -17,7 +17,7 @@ public class Misc : MonoBehaviour
     return null;
   }
 
-  static public Transform resetTransform (Transform t) 
+  static public Transform ResetTransform (Transform t) 
   {
     t.localRotation   = Quaternion.identity;
     t.localPosition   = new Vector3 (0,0,0);
@@ -26,13 +26,13 @@ public class Misc : MonoBehaviour
     return t;
   }
 
-  static public void deleteAllChildren (Transform parent) 
+  static public void DeleteAllChildren (Transform parent) 
   {
     foreach (Transform child in parent) 
       GameObject.Destroy (child.gameObject);
   }
 
-  static public Color createColor256 (int r, int g, int b)
+  static public Color CreateColor256 (int r, int g, int b)
   {
     return new Color ((float)r / 256f, (float)g / 256f, (float)b / 256f);
   }

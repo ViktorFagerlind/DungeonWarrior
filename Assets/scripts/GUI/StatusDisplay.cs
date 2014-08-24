@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof (AttackableCharacter))]
@@ -12,10 +12,10 @@ public class StatusDisplay : MonoBehaviour
   private float     m_gap;
   private Vector2   m_totalSize;
 
-  private Color     m_backgroundColor = Misc.createColor256 (50,50,50);
-  private Color     m_lifeColor       = Misc.createColor256 (122,19,19);
-  private Color     m_staminaColorOk  = Misc.createColor256 (22,133,56);
-  private Color     m_staminaColorNok = Misc.createColor256 (133,133,36);
+  private Color     m_backgroundColor = Misc.CreateColor256 (50,50,50);
+  private Color     m_lifeColor       = Misc.CreateColor256 (122,19,19);
+  private Color     m_staminaColorOk  = Misc.CreateColor256 (22,133,56);
+  private Color     m_staminaColorNok = Misc.CreateColor256 (133,133,36);
 
   private AttackableCharacter m_attackableCharacter;
 

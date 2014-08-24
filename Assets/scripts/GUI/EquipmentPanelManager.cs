@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class EquipmentPanelManager : MonoBehaviour 
 {
@@ -18,6 +19,8 @@ public class EquipmentPanelManager : MonoBehaviour
   private RectTransform   m_weaponPanel;
   private RectTransform   m_shieldPanel;
 
+  private GameObject      m_savedSelection;
+
   delegate void OnItemPressedDelegate (string name);
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -30,19 +33,17 @@ public class EquipmentPanelManager : MonoBehaviour
   
   public void OnWeaponSelectionConfirm (string context, bool pressedOk)
   {
-    GetComponent<CanvasGroup> ().interactable = true;
-        
-    if (!pressedOk)
-      return;
+    SetGroupInteractable (true);
 
-    Player.instance.m_equipmentManager.SetWeapon (context);
+    if (pressedOk)
+      Player.instance.m_equipmentManager.SetWeapon (context);
   }
         
   // -------------------------------------------------------------------------------------------------------------------
   
   public void OnWeaponItemPressed (string name)
   {
-    GetComponent<CanvasGroup> ().interactable = false;
+    SetGroupInteractable (false);
     GuiManager.instance.CreateSubPopup ("Equip " + name + " as weapon?", name, OnWeaponSelectionConfirm);
   }
 
@@ -50,20 +51,34 @@ public class EquipmentPanelManager : MonoBehaviour
   
   public void OnShieldSelectionConfirm (string context, bool pressedOk)
   {
-    GetComponent<CanvasGroup> ().interactable = true;
+    SetGroupInteractable (true);
 
-    if (!pressedOk)
-      return;
-    
-    Player.instance.m_equipmentManager.SetShield (context);
+    if (pressedOk)
+      Player.instance.m_equipmentManager.SetShield (context);
   }
   
   // -------------------------------------------------------------------------------------------------------------------
   
   public void OnShieldItemPressed (string name)
   {
-    GetComponent<CanvasGroup> ().interactable = false;
+    SetGroupInteractable (false);
     GuiManager.instance.CreateSubPopup ("Equip " + name + " as shield?", name, OnShieldSelectionConfirm);
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  
+  private void SetGroupInteractable (bool interactable)
+  {
+    if (interactable)
+    {
+      GetComponent<CanvasGroup> ().interactable = true;
+      GuiManager.instance.m_eventSystem.SetSelectedGameObject (m_savedSelection, new BaseEventData (GuiManager.instance.m_eventSystem));
+    }
+    else
+    {
+      GetComponent<CanvasGroup> ().interactable = false;
+      m_savedSelection = GuiManager.instance.m_eventSystem.currentSelectedObject;
+    }
   }
     
   // -------------------------------------------------------------------------------------------------------------------
@@ -71,6 +86,9 @@ public class EquipmentPanelManager : MonoBehaviour
   public void SetActive (bool active)
   {
     gameObject.SetActive (active);
+
+    Misc.DeleteAllChildren (m_weaponItemList);
+    Misc.DeleteAllChildren (m_shieldItemList);
 
     if (active)
     {
@@ -81,8 +99,11 @@ public class EquipmentPanelManager : MonoBehaviour
       UpdateItemList (m_shieldItemList, 
                       Player.instance.m_equipmentManager.m_shilds.GetItemArray (),
                       OnShieldItemPressed);
-    }
 
+      // Select the WeaponsButton upon start
+      Transform objectToSelect = transform.Find ("ChoisePanel/WeaponButton");
+      GuiManager.instance.m_eventSystem.SetSelectedGameObject (objectToSelect.gameObject, new BaseEventData (GuiManager.instance.m_eventSystem));
+    }
   }
   
   // -------------------------------------------------------------------------------------------------------------------

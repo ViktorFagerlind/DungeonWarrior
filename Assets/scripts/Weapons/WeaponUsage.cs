@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using UnityEngine;
 using System.Collections;
 
@@ -59,7 +59,7 @@ public class WeaponUsage : MonoBehaviour
   
   private void SetWeapon (Transform weapon, string weaponParentName)
   {
-    Transform parentWeaponTransform = Misc.getChildByName (transform, weaponParentName);
+    Transform parentWeaponTransform = Misc.GetChildByName (transform, weaponParentName);
     
     ClearWeaponsFromParent (weaponParentName);
     
@@ -68,7 +68,7 @@ public class WeaponUsage : MonoBehaviour
     m_parentWeaponSprite.enabled = false;
     
     weapon.parent = parentWeaponTransform;
-    Misc.resetTransform (weapon);
+    Misc.ResetTransform (weapon);
     
     // Update shield in potential Attackable character
     AttackableCharacter ac = GetComponent<AttackableCharacter> ();
@@ -80,7 +80,7 @@ public class WeaponUsage : MonoBehaviour
   
   private void ClearWeaponsFromParent (string weaponParentName)
   {
-    Transform weaponParent = Misc.getChildByName (transform, weaponParentName);
+    Transform weaponParent = Misc.GetChildByName (transform, weaponParentName);
     
     // Destroy other potential weapons
     for (int i = 0; i<weaponParent.childCount; i++) 

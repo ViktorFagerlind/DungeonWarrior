@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GuiManager : MonoBehaviour 
 {
@@ -24,7 +25,9 @@ public class GuiManager : MonoBehaviour
   private RectTransform m_popupGui;
   private bool          m_popupGuiIsSub = false; // True if user input etc should not be restored
     
-  private Canvas        m_canvas;
+  [HideInInspector] public Canvas        m_canvas;
+  [HideInInspector] public EventSystem   m_eventSystem;
+
 
   private EquipmentPanelManager m_equipmentPanelManager;
 
@@ -38,6 +41,8 @@ public class GuiManager : MonoBehaviour
     m_instance = this;
 
     m_canvas = GetComponent<Canvas> ();
+
+    m_eventSystem = GetComponent<EventSystem> ();
 
     m_equipmentPanelManager = GetComponentInChildren<EquipmentPanelManager> ();
   }
@@ -92,11 +97,11 @@ public class GuiManager : MonoBehaviour
 
   // -------------------------------------------------------------------------------------------------------------------
   
-  private void CreateSubPopup (bool popupGuiIsSub, string textString, string context, OnButtonPressedDelegate userDelegate)
+  private void CreatePopup (bool popupGuiIsSub, string textString, string context, OnButtonPressedDelegate userDelegate)
   {
-    m_popupGuiIsSub = false;
+    m_popupGuiIsSub = popupGuiIsSub;
        
-    if (popupGuiIsSub)
+    if (!popupGuiIsSub)
     {
       if (m_guiUsed)
         return;
@@ -119,21 +124,21 @@ public class GuiManager : MonoBehaviour
     Text text = m_popupGui.transform.Find ("Text").GetComponent<Text> ();
     text.text = textString;
 
-
+    m_eventSystem.SetSelectedGameObject (okButton.gameObject, new BaseEventData (m_eventSystem));
   }
 
   // -------------------------------------------------------------------------------------------------------------------
   
   public void CreateSubPopup (string textString, string context, OnButtonPressedDelegate userDelegate)
   {
-    CreateSubPopup (false, textString, context, userDelegate);
+    CreatePopup (true, textString, context, userDelegate);
   }    
 
   // -------------------------------------------------------------------------------------------------------------------
   
   public void CreateGlobalPopup (string textString, string context, OnButtonPressedDelegate userDelegate)
   {
-    CreateSubPopup (true, textString, context, userDelegate);
+    CreatePopup (false, textString, context, userDelegate);
   }
 }
 
