@@ -5,21 +5,19 @@ public class PickableItem : MonoBehaviour
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-  private void Pickup ()
+  private void MenuDone (string context, bool pressedOk)
   {
+    if (!pressedOk)
+    {
+      logger.Debug ("Player discarded " + gameObject.name + "...");
+      return;
+    }
+
     logger.Debug ("Player picked up " + gameObject.name + "!");
 
     Player.instance.m_equipmentManager.AddItem (gameObject.GetComponent<Item> ());
 
     Destroy (gameObject);
-  }
-
-  public void OnMenuDone (StickMenu.SelectionState state, int item, string itemName)
-  {
-    if (itemName == "Yes")
-      Pickup ();
-    else
-      logger.Debug ("Player discarded " + gameObject.name + "...");
   }
 
   void OnTriggerEnter2D (Collider2D other) 
@@ -29,9 +27,7 @@ public class PickableItem : MonoBehaviour
     if (other.gameObject != Player.instance.gameObject)
       return;
 
-    GuiManager.instance.CreatePopupMenuHorizontal ("Pick?", "Pick up " + name +  "?", 
-                                                   new GUIContent[] {new GUIContent ("Yes"), new GUIContent ("No")}, 
-                                                   0, OnMenuDone);
+    GuiManager.instance.CreateGlobalPopup ("Pick up " + name +  "?", "", MenuDone);
   }
 
   void OnTriggerExit2D (Collider2D other) 

@@ -1,114 +1,142 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GuiManager : MonoBehaviour 
 {
   private static readonly GameLogger logger = GameLogger.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-//  public float          m_buttonWidth        = 80;
-//  public float          m_buttonHeight       = 60;
-//  private Texture2D     m_OK;
-//  private Texture2D     m_NOK;
-
-  public delegate void OnMenuDone (StickMenu.SelectionState state, int item, string itemName);
-  OnMenuDone   m_onMenuDoneDelegate;
   // -------------------------------------------------------------------------------------------------------------------
 
-  private GUISkin       m_menuSkin = null;
+  public delegate void OnButtonPressedDelegate (string context, bool pressedOk);
 
-  StickMenu             m_menu = null;
-  
+  OnButtonPressedDelegate m_currentUserDelegate = null;
 
   // -------------------------------------------------------------------------------------------------------------------
   
-//  public Texture2D buttonOkTexture  {get { return m_OK;}}
-//  public Texture2D buttonNokTexture {get { return m_NOK;}}
-
   // Singleton
   private static GuiManager m_instance;
   public  static GuiManager instance {get { return m_instance;}}
-  
-  // -------------------------------------------------------------------------------------------------------------------
+
+
+  public  Transform     m_popupGuiPrefab = null;
+  private RectTransform m_popupGui;
+  private bool          m_popupGuiIsSub = false; // True if user input etc should not be restored
+    
+  private Canvas        m_canvas;
+
+  private EquipmentPanelManager m_equipmentPanelManager;
+
+  private bool m_guiUsed;
+
+
+    // -------------------------------------------------------------------------------------------------------------------
   
   void Awake()
   {
-    m_menuSkin    = (GUISkin)Resources.Load ("Graphics and prefabs/GUI/MenuSkin");
-    
     m_instance = this;
+
+    m_canvas = GetComponent<Canvas> ();
+
+    m_equipmentPanelManager = GetComponentInChildren<EquipmentPanelManager> ();
   }
 
   // -------------------------------------------------------------------------------------------------------------------
   
   void Start () 
   {
-    // m_OK  = Resources.Load ("Graphics and prefabs/GUI/GreenOK")  as Texture2D;
-    // m_NOK = Resources.Load ("Graphics and prefabs/GUI/RedNOK")   as Texture2D;
+    m_equipmentPanelManager.SetActive (false);
+    SetGuiUsed (false);
   }
 
   // -------------------------------------------------------------------------------------------------------------------
-  
-  public void CreatePopupMenuHorizontal (string title, string description, GUIContent[] listItems, int selectedItem, OnMenuDone onItemSelectedDelegate)
-  {
-    // Do not create multiple menues
-    if (m_menu != null)
-      return;
 
-    m_onMenuDoneDelegate = onItemSelectedDelegate;
-
-    m_menu = new StickMenu (title, description, listItems, selectedItem, new Vector2 (100, 40), listItems.Length);
-
-    Player.instance.InputEnabled = false;
-  }
-
-  // -------------------------------------------------------------------------------------------------------------------
-  
-  public void CreatePopupMenuVertical (string title, string description, GUIContent[] listItems, int selectedItem, OnMenuDone onItemSelectedDelegate)
-  {
-    // Do not create multiple menues
-    if (m_menu != null)
-      return;
-    
-    m_onMenuDoneDelegate = onItemSelectedDelegate;
-    
-    m_menu = new StickMenu (title, description, listItems, selectedItem, new Vector2 (200, 40), 1);
-    
-    Player.instance.InputEnabled = false;
-  }
-  
-  // -------------------------------------------------------------------------------------------------------------------
-  
   void Update ()
   {
-    if (m_menu == null)
+    bool menuButtonPressed = Input.GetButtonDown ("Menu");
+
+    if (menuButtonPressed && !m_equipmentPanelManager.IsActive () && !m_guiUsed)
     {
-      Player.instance.InputEnabled = true;
-      return;
+      m_equipmentPanelManager.SetActive (true);
+      SetGuiUsed (true);
+    }
+    else if (menuButtonPressed && m_equipmentPanelManager.IsActive ())
+    {
+      m_equipmentPanelManager.SetActive (false);
+      SetGuiUsed (false);
     }
 
-    StickMenu.SelectionState selectState = m_menu.CheckForSelection ();
-    if (selectState != StickMenu.SelectionState.Choosing) 
-    {
-      if (selectState == StickMenu.SelectionState.SelectedItem) 
-        m_onMenuDoneDelegate (selectState, m_menu.SelectedItem, m_menu.SelectedItemName);
-      else
-        m_onMenuDoneDelegate (selectState, 0, "");
-
-      m_menu = null;
-    }
   }
+
+  // -------------------------------------------------------------------------------------------------------------------
   
-  // -------------------------------------------------------------------------------------------------------------------
-
-  void OnGUI () 
+  void SetGuiUsed (bool guiUsed)
   {
-    if (m_menu != null)
-    {
-      GUI.skin = m_menuSkin;
-      m_menu.Display ();
-    }
+    m_guiUsed                    = guiUsed;
+    Player.instance.InputEnabled = !m_guiUsed;
   }
 
   // -------------------------------------------------------------------------------------------------------------------
+  
+  void OnButtonPressed (string context, bool pressedOk)
+  {
+    if (m_currentUserDelegate != null)
+      m_currentUserDelegate (context, pressedOk);
 
+    Destroy (m_popupGui.gameObject);
+
+    if (!m_popupGuiIsSub)
+      SetGuiUsed (false);
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  
+  private void CreateSubPopup (bool popupGuiIsSub, string textString, string context, OnButtonPressedDelegate userDelegate)
+  {
+    m_popupGuiIsSub = false;
+       
+    if (popupGuiIsSub)
+    {
+      if (m_guiUsed)
+        return;
+      
+      SetGuiUsed (true);
+    }
+
+    m_currentUserDelegate = userDelegate;
+
+    m_popupGui = (RectTransform) Instantiate (m_popupGuiPrefab);
+    m_popupGui.parent = m_canvas.transform;
+    m_popupGui.anchoredPosition = new Vector2 (0, 0);
+    
+    Button okButton = m_popupGui.transform.Find ("OK").GetComponent<Button> ();
+    okButton.onClick.AddListener (delegate {OnButtonPressed (context, true);});
+    
+    Button cancelButton = m_popupGui.transform.Find ("Cancel").GetComponent<Button> ();
+    cancelButton.onClick.AddListener (delegate {OnButtonPressed (context, false);});
+    
+    Text text = m_popupGui.transform.Find ("Text").GetComponent<Text> ();
+    text.text = textString;
+
+
+  }
+
+  // -------------------------------------------------------------------------------------------------------------------
+  
+  public void CreateSubPopup (string textString, string context, OnButtonPressedDelegate userDelegate)
+  {
+    CreateSubPopup (false, textString, context, userDelegate);
+  }    
+
+  // -------------------------------------------------------------------------------------------------------------------
+  
+  public void CreateGlobalPopup (string textString, string context, OnButtonPressedDelegate userDelegate)
+  {
+    CreateSubPopup (true, textString, context, userDelegate);
+  }
 }
+
+
+
+
