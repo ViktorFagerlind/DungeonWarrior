@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: 03ca2da3dbea89e4d9fcb8553dcb7fcf
+guid: 01af41af14f502749979750c6c8aeee9
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Lower-arm-away
-    21300002: ForestMan_ArmShield
+    21300000: Foot-away
+    21300002: ForestMan_Foot
+    21300004: ForestMan foot
+    21300006: Forest man foot
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

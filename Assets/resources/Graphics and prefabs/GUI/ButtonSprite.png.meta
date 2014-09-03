@@ -1,8 +1,10 @@
 fileFormatVersion: 2
-guid: ed4f109eda9f07142ae9c62b9d7d7727
+guid: a7a92df1174e07f41a8b905e5fc0e13b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: button_03_active
+    21300000: button_03_normal
+    21300002: Button
+    21300004: ButtonSprite
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -26,9 +28,9 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -37,7 +39,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 6, y: 9, z: 6, w: 10}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8

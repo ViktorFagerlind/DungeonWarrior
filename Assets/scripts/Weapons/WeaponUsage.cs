@@ -63,7 +63,7 @@ public class WeaponUsage : MonoBehaviour
     
     ClearWeaponsFromParent (weaponParentName);
     
-    m_weaponSprite        = weapon.GetComponent<SpriteRenderer> ();
+    m_weaponSprite        = weapon.GetComponentInChildren<SpriteRenderer> ();
     m_parentWeaponSprite  = parentWeaponTransform.GetComponent<SpriteRenderer> ();
     m_parentWeaponSprite.enabled = false;
     

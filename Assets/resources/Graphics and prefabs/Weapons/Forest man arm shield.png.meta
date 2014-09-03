@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: caa1ba2fb878a874780d06d489d13622
+guid: 03ca2da3dbea89e4d9fcb8553dcb7fcf
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Stone
-    21300002: ForestMan_Stone
+    21300000: Lower-arm-away
+    21300002: ForestMan_ArmShield
+    21300004: ForestMan arm shield
+    21300006: Forest man arm shield
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -80,9 +80,9 @@ public class EquipmentManager : MonoBehaviour
   public void AddItem (Item item)
   {
     if (item is AttackWeapon)
-      m_attackWeapons.m_items.Add (item.gameObject.name);
+      m_attackWeapons.AddItem (item.gameObject.name);
     else if (item is Shield)
-      m_shilds.m_items.Add (item.gameObject.name);
+      m_shilds.AddItem (item.gameObject.name);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------

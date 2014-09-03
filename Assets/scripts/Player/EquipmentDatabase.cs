@@ -51,6 +51,7 @@ public class EquipmentDatabase : MonoBehaviour
     m_items.Add (new Item ("Rusty sword", ""));
     m_items.Add (new Item ("Grey shield", ""));
     m_items.Add (new Item ("Rusty shield", ""));
+    m_items.Add (new Item ("Forest man stone", ""));
   }
   
   // -------------------------------------------------------------------------------------------------------------------
