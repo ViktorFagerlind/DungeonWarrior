@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_droppable: 1
-  m_damage: 1000
+  m_damage: 20
   m_force: 15000
   m_hitArmorSound: {fileID: 8300000, guid: db8954baff1f3b14eba4780a6faf8c69, type: 3}
   m_hitShieldSound: {fileID: 8300000, guid: 3e7ffbaf53223e544b1d9b0e0369475e, type: 3}
