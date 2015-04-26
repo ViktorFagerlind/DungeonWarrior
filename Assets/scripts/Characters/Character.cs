@@ -55,7 +55,7 @@ public class Character : MonoBehaviour
   // ---------------------------------------------------------------------------------------------------------------------------------
   
   public bool  grounded                   {get {return m_grounded;}}
-  public float m_horizontalSpeed          {get {return rigidbody2D.velocity.x;}}
+  public float m_horizontalSpeed          {get {return GetComponent<Rigidbody2D>().velocity.x;}}
     
   // ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -139,8 +139,8 @@ public class Character : MonoBehaviour
   public virtual void Awake ()
 	{
     m_collider        = GetComponentInChildren<CircleCollider2D> ();
-    m_leftRayOrigin   = new Vector2 (m_collider.center.x - m_collider.radius * 0.7f, m_collider.center.y);
-    m_rightRayOrigin  = new Vector2 (m_collider.center.x + m_collider.radius * 0.7f, m_collider.center.y);
+    m_leftRayOrigin   = new Vector2 (m_collider.offset.x - m_collider.radius * 0.7f, m_collider.offset.y);
+    m_rightRayOrigin  = new Vector2 (m_collider.offset.x + m_collider.radius * 0.7f, m_collider.offset.y);
     m_rayLength       = m_collider.radius * 1.1f;
 
     m_characterAnims = GetComponentInChildren<CharacterAnims> ();
@@ -282,7 +282,7 @@ public class Character : MonoBehaviour
     {
       //rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
 
-      rigidbody2D.AddForce (m_hitForceToApply);
+      GetComponent<Rigidbody2D>().AddForce (m_hitForceToApply);
       SetFacingDirection (m_hitForceToApply.x > 0f);
 
       m_hitForceToApply = new Vector2 (0f, 0f);
@@ -303,23 +303,23 @@ public class Character : MonoBehaviour
     if (m_inputJump)
     {
       logger.Debug (gameObject.name + ": Jump");
-      rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, m_jumpSpeed);
+      GetComponent<Rigidbody2D>().velocity = new Vector2 (GetComponent<Rigidbody2D>().velocity.x, m_jumpSpeed);
     }
 
     // Calculate force along ground plane
     Vector2 targetVelocity  = new Vector2 ();
     
     targetVelocity.x        = m_walkVelocity * m_inputHorizontal;
-    Vector2 velocity        = rigidbody2D.velocity;
+    Vector2 velocity        = GetComponent<Rigidbody2D>().velocity;
     Vector2 velocityChange  = targetVelocity - velocity;
     velocityChange.x = Mathf.Clamp(velocityChange.x, -m_maxVelocityChange, m_maxVelocityChange);
     velocityChange.y = 0;
 
     // f = m * a; dv = dt * a => dv = dt * f/m => f = m * dv / dt
-    Vector2 force = rigidbody2D.mass * velocityChange / Time.fixedDeltaTime;
+    Vector2 force = GetComponent<Rigidbody2D>().mass * velocityChange / Time.fixedDeltaTime;
 
     //logger.Debug (gameObject.name +  ": Apply move force");
-    rigidbody2D.AddForce (force);
+    GetComponent<Rigidbody2D>().AddForce (force);
 	}
 
   // ---------------------------------------------------------------------------------------------------------------------------------

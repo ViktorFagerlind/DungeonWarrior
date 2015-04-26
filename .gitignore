@@ -13,6 +13,7 @@ GraphicsEditing/
 Release/
 ExportedObj/
 
+*.dll
 *.svd
 *.userprefs
 *.csproj

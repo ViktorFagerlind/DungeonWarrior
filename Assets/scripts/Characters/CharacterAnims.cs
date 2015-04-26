@@ -85,7 +85,7 @@ public class CharacterAnims : MonoBehaviour
   private AnimationState DecodeState (AnimatorStateInfo stateInfo)
   {
     AnimationState state;
-    int            stateNameHash = stateInfo.nameHash;
+    int            stateNameHash = stateInfo.fullPathHash;
 
     if (stateNameHash == m_idleToRunStateHash)
       state = AnimationState.IdleToRun;

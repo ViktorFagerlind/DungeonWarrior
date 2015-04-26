@@ -22,7 +22,7 @@ public class WeaponUsage : MonoBehaviour
     if (m_weaponSprite == null)
       return;
 
-    m_weaponSprite.renderer.sortingOrder = m_parentWeaponSprite.renderer.sortingOrder;
+    m_weaponSprite.GetComponent<Renderer>().sortingOrder = m_parentWeaponSprite.GetComponent<Renderer>().sortingOrder;
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------

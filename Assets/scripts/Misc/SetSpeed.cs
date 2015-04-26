@@ -8,6 +8,6 @@ public class SetSpeed : MonoBehaviour
 
   void OnMouseUp ()
   {
-    rigidbody2D.velocity = m_speed;
+    GetComponent<Rigidbody2D>().velocity = m_speed;
   }
 }

@@ -101,7 +101,7 @@ namespace Assets.ThirdParty.Spriter2Unity.Editor.Unity
             animClip.name = animation.Name;
 
             //Set clip to Generic type
-            AnimationUtility.SetAnimationType(animClip, ModelImporterAnimationType.Generic);
+//            AnimationUtility.SetAnimationType(animClip, ModelImporterAnimationType.Generic);
 
             //Populate the animation curves & events
             MakeAnimationCurves(root, animClip, animation);

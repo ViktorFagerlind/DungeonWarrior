@@ -45,10 +45,9 @@
 
 			struct v2f
 			{
-				float  zWorld;
 				float4 vertex   : SV_POSITION;
 				fixed4 color    : COLOR;
-				half2 texcoord  : TEXCOORD0;
+				float3 texcoord : TEXCOORD0;
 			};
 			
 			fixed4 	_FogColor;
@@ -59,10 +58,12 @@
 			{
 				v2f OUT;
 				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
-				OUT.texcoord = IN.texcoord;
+        OUT.texcoord.x = IN.texcoord.x;
+        OUT.texcoord.y = IN.texcoord.y;
+        OUT.texcoord.z = OUT.vertex.z;
 				OUT.color = IN.color;
 	
-				OUT.zWorld = OUT.vertex.z;
+//				OUT.zWorld = OUT.vertex.z;
 	
 				#ifdef PIXELSNAP_ON
 				OUT.vertex = UnityPixelSnap (OUT.vertex);
@@ -75,6 +76,9 @@
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
+        float2 tex;
+        tex.x = IN.texcoord.x;
+        tex.y = IN.texcoord.y;
 				fixed4 originalColor = tex2D(_MainTex, IN.texcoord) * IN.color;
 				fixed4 outputColor;
 				
@@ -82,7 +86,7 @@
 				
 //				float weight = (50.0 - 50*OUT.vertex.z) / (100);
 //				OUT.color = lerp (IN.color, _FogColor, weight);
-				float weight = clamp ((IN.zWorld - _FogStart) / (_FogEnd - _FogStart), 0.0, 1.0);
+        float weight = clamp ((IN.texcoord.z - _FogStart) / (_FogEnd - _FogStart), 0.0, 1.0);
 				outputColor = lerp (originalColor * originalColor.a, _FogColor * originalColor.a, weight);
 				
 				outputColor.a = originalColor.a;

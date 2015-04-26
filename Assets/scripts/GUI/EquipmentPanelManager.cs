@@ -77,7 +77,7 @@ public class EquipmentPanelManager : MonoBehaviour
     else
     {
       GetComponent<CanvasGroup> ().interactable = false;
-      m_savedSelection = GuiManager.instance.m_eventSystem.currentSelectedObject;
+      m_savedSelection = GuiManager.instance.m_eventSystem.currentSelectedGameObject;
     }
   }
     

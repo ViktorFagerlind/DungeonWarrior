@@ -34,14 +34,14 @@ public class AttackWeapon : Item
     switch (hitType)
     {
       case HitType.Protected: 
-        audio.clip = m_hitShieldSound;
+        GetComponent<AudioSource>().clip = m_hitShieldSound;
         break;
       case HitType.Unprotected: 
-        audio.clip = m_hitArmorSound;
+        GetComponent<AudioSource>().clip = m_hitArmorSound;
         break;
     }
 
-    audio.Play ();
+    GetComponent<AudioSource>().Play ();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------

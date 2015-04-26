@@ -27,7 +27,7 @@ public abstract class ParticleModifier : MonoBehaviour
 
   protected void LateUpdate () 
   {
-    if (!particleSystem.IsAlive())
+    if (!GetComponent<ParticleSystem>().IsAlive())
       GameObject.Destroy (gameObject); 
   }
 
