@@ -448,7 +448,7 @@ MonoBehaviour:
     m_items:
     - Rusty shield
     m_parentName: Left-hand-weapon
---- !u!4 &145899373
+--- !u!4 &145899373 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 67d4035f240fa5c4e9e9d428f600f91b, type: 2}
   m_PrefabInternal: {fileID: 3944480}
@@ -637,15 +637,15 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0f4449a3118a767439392ea6f824e1f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!4 &207480689
+--- !u!4 &207480689 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400014, guid: 9659218d4a4f82c4592a5cb7145630c4, type: 2}
   m_PrefabInternal: {fileID: 1013227917}
---- !u!4 &242667839
+--- !u!4 &242667839 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c2bf7f47db938cf44b808e4f5f4cb107, type: 2}
   m_PrefabInternal: {fileID: 1179205005}
---- !u!4 &242819232
+--- !u!4 &242819232 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 4a9cb86a9fa9d9c44a15f1223fcd0ba4, type: 2}
   m_PrefabInternal: {fileID: 155328061}
@@ -752,7 +752,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9659218d4a4f82c4592a5cb7145630c4, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &270157301
+--- !u!4 &270157301 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7d51254cb49f750458ff911c9683132a, type: 2}
   m_PrefabInternal: {fileID: 694052783}
@@ -2039,7 +2039,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a9cb86a9fa9d9c44a15f1223fcd0ba4, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1023424938
+--- !u!4 &1023424938 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 41d7334428024cf4885379694ad23f4d, type: 2}
   m_PrefabInternal: {fileID: 1087679075}
@@ -2156,7 +2156,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 41d7334428024cf4885379694ad23f4d, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1098227297
+--- !u!4 &1098227297 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 417b45d7986b69a48b2cc509f600f685, type: 2}
   m_PrefabInternal: {fileID: 190420647}
@@ -2711,7 +2711,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: .5, y: .5}
---- !u!4 &1311496480
+--- !u!4 &1311496480 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400014, guid: 9659218d4a4f82c4592a5cb7145630c4, type: 2}
   m_PrefabInternal: {fileID: 1342448923}
@@ -2925,7 +2925,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fc2ccfbf41e05de48a59c5928947559e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!4 &1427272740
+--- !u!4 &1427272740 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 4a9cb86a9fa9d9c44a15f1223fcd0ba4, type: 2}
   m_PrefabInternal: {fileID: 1021271588}
@@ -3383,7 +3383,7 @@ MonoBehaviour:
   m_popupGuiPrefab: {fileID: 22400002, guid: 3a0677645bbcf9a49be8987bf273d68e, type: 2}
   m_canvas: {fileID: 0}
   m_eventSystem: {fileID: 0}
---- !u!4 &1677733890
+--- !u!4 &1677733890 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400014, guid: 9659218d4a4f82c4592a5cb7145630c4, type: 2}
   m_PrefabInternal: {fileID: 269165345}
@@ -3605,11 +3605,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1737641155}
---- !u!4 &1768861525
+--- !u!4 &1768861525 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: e0c176438540ebb47a83142f1e87e7d5, type: 2}
   m_PrefabInternal: {fileID: 1193818255}
---- !u!4 &1804614454
+--- !u!4 &1804614454 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 61ecccaef8751e640b3451b7f18414d1, type: 2}
   m_PrefabInternal: {fileID: 1231998262}
@@ -3712,11 +3712,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!4 &2049416022
+--- !u!4 &2049416022 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7d51254cb49f750458ff911c9683132a, type: 2}
   m_PrefabInternal: {fileID: 1023907800}
---- !u!4 &2070958213
+--- !u!4 &2070958213 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 4a9cb86a9fa9d9c44a15f1223fcd0ba4, type: 2}
   m_PrefabInternal: {fileID: 1164597832}
@@ -3762,7 +3762,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 990f357fede910047b8e54e81d5faeb2, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &2093964742
+--- !u!4 &2093964742 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7d51254cb49f750458ff911c9683132a, type: 2}
   m_PrefabInternal: {fileID: 948713993}

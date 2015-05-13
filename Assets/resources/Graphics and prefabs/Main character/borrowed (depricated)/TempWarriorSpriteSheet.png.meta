@@ -3,6 +3,24 @@ guid: d7ebc3535bc77354b9091545f91ce381
 labels:
 - Uni2DID_6573582c-3ce0-4e8d-a8ae-51d43f59e417
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: TempWarriorSpriteSheet_01_8
+    21300002: TempWarriorSpriteSheet_01_9
+    21300004: TempWarriorSpriteSheet_01_10
+    21300006: TempWarriorSpriteSheet_01_11
+    21300008: TempWarriorSpriteSheet_01_12
+    21300010: TempWarriorSpriteSheet_01_13
+    21300012: TempWarriorSpriteSheet_01_14
+    21300014: TempWarriorSpriteSheet_01_15
+    21300016: TempWarriorSpriteSheet_01_8
+    21300018: TempWarriorSpriteSheet_01_9
+    21300020: TempWarriorSpriteSheet_01_10
+    21300022: TempWarriorSpriteSheet_01_11
+    21300024: TempWarriorSpriteSheet_12
+    21300026: TempWarriorSpriteSheet_13
+    21300028: TempWarriorSpriteSheet_14
+    21300030: TempWarriorSpriteSheet_15
+    21300032: TempWarriorSpriteSheet_16
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -21,6 +39,9 @@ TextureImporter:
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 1024
@@ -31,6 +52,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
@@ -216,3 +238,5 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

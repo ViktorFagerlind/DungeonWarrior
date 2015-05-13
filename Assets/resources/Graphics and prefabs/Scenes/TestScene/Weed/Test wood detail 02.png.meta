@@ -3,6 +3,8 @@ guid: eb20963f020c4ec4a87b2aa61f5fd536
 labels:
 - Uni2DID_7c9fc69c-61a7-4938-96cc-22d884adcbad
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Test wood detail 02_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -21,6 +23,9 @@ TextureImporter:
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 1024
@@ -31,6 +36,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
+  rGBM: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
@@ -56,3 +62,5 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -34,7 +34,6 @@ ExportedObj/
 .Trashes
 ehthumbs.db
 Thumbs.db
-/Bin
 
 # =============== #
 # Logging #
@@ -42,3 +41,10 @@ Thumbs.db
 *.log
 MacOsRelease.app
 Scratchpad ML Export
+
+# =============== #
+# Binaries #
+# =============== #
+/Bin
+/DungeonWarrior_iOS
+DungeonWarrior_MaxOs.app
